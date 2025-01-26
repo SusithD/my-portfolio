@@ -16,12 +16,13 @@ const Navbar = () => {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: 'rgba(0, 0, 0, 0.8)', // Semi-transparent black background
+        backgroundColor: 'rgba(0, 0, 0, 0.9)', // Semi-transparent black background
         backdropFilter: 'blur(10px)', // Frosted glass effect
         boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)', // Subtle shadow
+        borderBottom: '1px solid rgba(255, 255, 255, 0.1)', // Subtle white border
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
+      <Toolbar sx={{ justifyContent: 'space-between', padding: '0 24px' }}>
         {/* Logo or Name */}
         <Typography
           variant="h6"
@@ -30,7 +31,7 @@ const Navbar = () => {
             color: '#ffffff', // White text
             cursor: 'pointer',
             '&:hover': {
-              color: '#0070f3', // Blue accent on hover
+              opacity: 0.8, // Slight fade on hover
             },
           }}
           onClick={() => handleScroll('home')}
@@ -39,7 +40,7 @@ const Navbar = () => {
         </Typography>
 
         {/* Navigation Links */}
-        <div style={{ display: 'flex', gap: '16px' }}>
+        <div style={{ display: 'flex', gap: '24px' }}>
           <Button
             color="inherit"
             onClick={() => handleScroll('home')}
@@ -48,7 +49,8 @@ const Navbar = () => {
               fontWeight: 'bold',
               color: '#ffffff', // White text
               '&:hover': {
-                color: '#0070f3', // Blue accent on hover
+                color: '#ffffff', // Keep text white
+                borderBottom: '2px solid #ffffff', // White underline on hover
               },
             }}
           >
@@ -62,7 +64,8 @@ const Navbar = () => {
               fontWeight: 'bold',
               color: '#ffffff',
               '&:hover': {
-                color: '#0070f3',
+                color: '#ffffff',
+                borderBottom: '2px solid #ffffff',
               },
             }}
           >
@@ -76,7 +79,8 @@ const Navbar = () => {
               fontWeight: 'bold',
               color: '#ffffff',
               '&:hover': {
-                color: '#0070f3',
+                color: '#ffffff',
+                borderBottom: '2px solid #ffffff',
               },
             }}
           >
@@ -90,7 +94,8 @@ const Navbar = () => {
               fontWeight: 'bold',
               color: '#ffffff',
               '&:hover': {
-                color: '#0070f3',
+                color: '#ffffff',
+                borderBottom: '2px solid #ffffff',
               },
             }}
           >
