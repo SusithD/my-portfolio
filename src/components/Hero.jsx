@@ -1,9 +1,16 @@
-// src/components/Hero.jsx
+"use client"; // Mark this component as a Client Component
+
 import React from 'react';
 import { Typography, Button } from '@mui/material';
-import { Link } from 'react-scroll';
 
 const Hero = () => {
+  const handleScroll = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div
       id="home"
@@ -19,10 +26,12 @@ const Hero = () => {
       <Typography variant="h5" gutterBottom>
         Software Engineering Student | Aspiring Developer
       </Typography>
-      <Button variant="contained" color="primary">
-        <Link to="projects" smooth={true} duration={500}>
-          View My Work
-        </Link>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => handleScroll('projects')}
+      >
+        View My Work
       </Button>
     </div>
   );
