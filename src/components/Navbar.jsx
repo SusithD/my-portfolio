@@ -21,10 +21,11 @@ const Navbar = () => {
       position="fixed"
       sx={{
         backgroundColor: '#000000', // Black background
-        boxShadow: '0px 2px 4px rgba(255, 255, 255, 0.1)', // Subtle white shadow
+        boxShadow: 'none', // Remove shadow for clean look
+        padding: '0 24px',
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between', padding: '0 24px' }}>
+      <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center', padding: '8px 24px' }}>
         {/* Logo or Name */}
         <Typography
           variant="h6"
@@ -34,8 +35,6 @@ const Navbar = () => {
             cursor: 'pointer',
             '&:hover': {
               opacity: 0.8,
-              transform: 'scale(1.05)', // Slight scale animation on hover
-              transition: 'transform 0.3s ease',
             },
           }}
           onClick={() => handleScroll('home')}
@@ -51,17 +50,11 @@ const Navbar = () => {
             sx={{
               textTransform: 'none',
               fontWeight: 'bold',
-              color: '#ffffff', // White text
-              position: 'relative',
-              '&:hover::after': {
-                content: '""',
-                position: 'absolute',
-                bottom: '-2px',
-                left: '0',
-                width: '100%',
-                height: '2px',
-                backgroundColor: '#ffffff', // White underline on hover
-                animation: 'underline 0.3s ease',
+              color: '#ffffff',
+              '&:hover': {
+                textDecoration: 'underline', // Simple underline on hover
+                textDecorationColor: '#ffffff',
+                textDecorationThickness: '2px',
               },
             }}
           >
@@ -74,16 +67,10 @@ const Navbar = () => {
               textTransform: 'none',
               fontWeight: 'bold',
               color: '#ffffff',
-              position: 'relative',
-              '&:hover::after': {
-                content: '""',
-                position: 'absolute',
-                bottom: '-2px',
-                left: '0',
-                width: '100%',
-                height: '2px',
-                backgroundColor: '#ffffff',
-                animation: 'underline 0.3s ease',
+              '&:hover': {
+                textDecoration: 'underline',
+                textDecorationColor: '#ffffff',
+                textDecorationThickness: '2px',
               },
             }}
           >
@@ -96,16 +83,10 @@ const Navbar = () => {
               textTransform: 'none',
               fontWeight: 'bold',
               color: '#ffffff',
-              position: 'relative',
-              '&:hover::after': {
-                content: '""',
-                position: 'absolute',
-                bottom: '-2px',
-                left: '0',
-                width: '100%',
-                height: '2px',
-                backgroundColor: '#ffffff',
-                animation: 'underline 0.3s ease',
+              '&:hover': {
+                textDecoration: 'underline',
+                textDecorationColor: '#ffffff',
+                textDecorationThickness: '2px',
               },
             }}
           >
@@ -118,16 +99,10 @@ const Navbar = () => {
               textTransform: 'none',
               fontWeight: 'bold',
               color: '#ffffff',
-              position: 'relative',
-              '&:hover::after': {
-                content: '""',
-                position: 'absolute',
-                bottom: '-2px',
-                left: '0',
-                width: '100%',
-                height: '2px',
-                backgroundColor: '#ffffff',
-                animation: 'underline 0.3s ease',
+              '&:hover': {
+                textDecoration: 'underline',
+                textDecorationColor: '#ffffff',
+                textDecorationThickness: '2px',
               },
             }}
           >
@@ -159,7 +134,7 @@ const Navbar = () => {
               backgroundColor: '#111111', // Dark gray background
               padding: '16px',
               borderRadius: '8px',
-              boxShadow: '0px 4px 10px rgba(255, 255, 255, 0.1)', // Subtle white shadow
+              boxShadow: '0px 4px 10px rgba(255, 255, 255, 0.1)', // Subtle shadow
             }}
           >
             <Button
