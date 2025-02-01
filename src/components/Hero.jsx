@@ -1,7 +1,27 @@
 "use client"; // Mark this component as a Client Component
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography, Button } from '@mui/material';
+import { motion, useScroll, useTransform } from 'framer-motion';
+
+// Typewriter Effect Component
+const Typewriter = ({ text, delay }) => {
+  const [currentText, setCurrentText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        setCurrentText((prevText) => prevText + text[currentIndex]);
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+      }, delay);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, delay, text]);
+
+  return <span>{currentText}</span>;
+};
 
 const Hero = () => {
   const handleScroll = (id) => {
@@ -11,8 +31,12 @@ const Hero = () => {
     }
   };
 
+  // Parallax Effect
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
   return (
-    <div
+    <motion.div
       id="home"
       style={{
         textAlign: 'center',
@@ -30,9 +54,10 @@ const Hero = () => {
         `, // Subtle diagonal lines pattern
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        y, // Apply parallax effect
       }}
     >
-      {/* Main Heading */}
+      {/* Main Heading with Typewriter Effect */}
       <Typography
         variant="h1"
         gutterBottom
@@ -54,7 +79,7 @@ const Hero = () => {
           },
         }}
       >
-        Hi, I'm Susith Deshan
+        Hi, I'm <Typewriter text="Susith Deshan" delay={100} />
       </Typography>
 
       {/* Subheading */}
@@ -70,7 +95,7 @@ const Hero = () => {
         Software Engineering Student | Aspiring Developer
       </Typography>
 
-      {/* Call-to-Action Button */}
+      {/* Call-to-Action Button with Hover Effect */}
       <Button
         variant="outlined"
         sx={{
@@ -86,13 +111,14 @@ const Hero = () => {
             backgroundColor: '#ffffff', // White background on hover
             color: '#000000', // Black text on hover
             borderColor: '#ffffff',
+            transform: 'scale(1.05)', // Slight scale on hover
           },
         }}
         onClick={() => handleScroll('projects')}
       >
         View My Work
       </Button>
-    </div>
+    </motion.div>
   );
 };
 
