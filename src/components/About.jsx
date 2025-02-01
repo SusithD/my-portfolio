@@ -1,7 +1,6 @@
 "use client"; // Mark this component as a Client Component
-
 import React from 'react';
-import { Typography, Grid, Box, Divider } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 const About = () => {
   return (
@@ -13,6 +12,7 @@ const About = () => {
         color: '#ffffff', // White text
       }}
     >
+      {/* Title */}
       <Typography
         variant="h4"
         gutterBottom
@@ -20,7 +20,7 @@ const About = () => {
           fontWeight: 'bold',
           color: '#ffffff',
           textAlign: 'center',
-          marginBottom: '40px',
+          marginBottom: '60px',
           position: 'relative',
           '&::after': {
             content: '""',
@@ -30,114 +30,171 @@ const About = () => {
             transform: 'translateX(-50%)',
             width: '60px',
             height: '4px',
-            backgroundColor: '#ffffff', // White underline
+            backgroundColor: '#0070f3', // Blue underline
           },
         }}
       >
-        About Me
+        My Journey
       </Typography>
 
-      <Grid container spacing={4} sx={{ maxWidth: '1200px', margin: '0 auto' }}>
-        {/* Profile Section */}
-        <Grid item xs={12} md={6}>
-          <Box
-            sx={{
-              backgroundColor: '#111111', // Dark gray background
-              padding: '24px',
-              borderRadius: '8px',
-              boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
-            }}
-          >
-            <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', fontWeight: 'bold' }}>
-              Profile
-            </Typography>
-            <Typography variant="body1" sx={{ color: '#a0a0a0', lineHeight: '1.8' }}>
-              Enthusiastic software engineering undergraduate with expertise in fullstack development,
-              specializing in React, Node.js, JavaScript, HTML, CSS, and MongoDB. Experienced in building
-              responsive, scalable web applications with seamless API integrations. Skilled in Git, Agile
-              methodologies, and debugging with Postman. With over 7 years of freelance experience in web
-              development, UI/UX design, and graphic design, I deliver user-centric solutions. As the founder
-              of The Qexle, I lead innovative projects globally. Eager to contribute my technical skills to
-              impactful software development and grow in a dynamic engineering environment.
-            </Typography>
-          </Box>
-        </Grid>
-
-        {/* Education Section */}
-        <Grid item xs={12} md={6}>
-          <Box
-            sx={{
-              backgroundColor: '#111111', // Dark gray background
-              padding: '24px',
-              borderRadius: '8px',
-              boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
-            }}
-          >
-            <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', fontWeight: 'bold' }}>
-              Education
-            </Typography>
-            <Typography variant="body1" sx={{ color: '#a0a0a0', lineHeight: '1.8' }}>
-              <strong>Bachelor of Software Engineering (Honours)</strong>
+      {/* Timeline Container */}
+      <Box
+        sx={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          position: 'relative',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: '50%',
+            borderLeft: '2px solid #0070f3',
+            zIndex: 1,
+          },
+        }}
+      >
+        {/* Timeline Items */}
+        <TimelineItem
+          title="Founder & UI/UX, Graphic Design & Web Development Specialist"
+          company="The Qexle"
+          duration="Dec 2019 - Present · 5 yrs 3 mos"
+          location="Malabe, Western Province, Sri Lanka"
+          description={
+            <>
+              As the founder of The Qexle, I drive strategic growth and oversee all facets of the business, from
+              client acquisition to project delivery. The Qexle specializes in Branding & Strategy, Web
+              Development, Digital Marketing, and SEO Services, aiming to empower businesses with innovative
+              solutions tailored for their digital success. I lead a team dedicated to delivering exceptional
+              digital experiences that align with our clients’ business goals.
               <br />
-              National Institute of Business Management (NIBM), Sri Lanka
+              <strong>Skills:</strong> Branding & Identity Design, Digital Marketing, Web Development, SEO
+            </>
+          }
+          side="left"
+        />
+        <TimelineItem
+          title="User Interface Designer"
+          company="Upwork"
+          duration="Aug 2016 - Present · 8 yrs 7 mos"
+          location="Remote"
+          description={
+            <>
+              As a part-time UI designer on Upwork for eight years, I've honed my skills in creating visually
+              appealing, intuitive, and user-centered interfaces for a wide range of clients and industries.
               <br />
-              Expected Graduation: 2026
+              <strong>Key Achievements:</strong>
               <br />
-              Current Year: Second Year (2022 – Present)
+              - Successfully completed over 300+ projects with high client satisfaction.
               <br />
-              GPA: 3.80/4.0
+              - Specialized in minimal, modern, and user-friendly UI designs.
               <br />
-              Relevant Courses: Data Structures and Algorithms, Object-Oriented Programming, Software
-              Development, Web Application Development, Database Management Systems, Agile Methodologies
-            </Typography>
-          </Box>
-        </Grid>
-
-        {/* Experience Section */}
-        <Grid item xs={12}>
-          <Box
-            sx={{
-              backgroundColor: '#111111', // Dark gray background
-              padding: '24px',
-              borderRadius: '8px',
-              boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
-            }}
-          >
-            <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', fontWeight: 'bold' }}>
-              Experience
-            </Typography>
-            <Typography variant="body1" sx={{ color: '#a0a0a0', lineHeight: '1.8' }}>
-              <strong>Founder & UI/UX, Graphic Design & Web Development Specialist</strong>
+              - Consistently delivered responsive, high-quality designs under tight timelines.
               <br />
-              The Qexle, Malabe, Sri Lanka | Dec 2019 - Present
+              <strong>Skills:</strong> Figma, Graphic Design, UI/UX Design
+            </>
+          }
+          side="right"
+        />
+        <TimelineItem
+          title="Web Designer"
+          company="Fiverr"
+          duration="Apr 2016 - Present · 8 yrs 11 mos"
+          location="Remote"
+          description={
+            <>
+              As a freelance web designer on Fiverr for eight years, I have developed custom, user-friendly
+              websites that help clients stand out online. My work spans a range of industries, focusing on
+              creating engaging, visually appealing designs that prioritize user experience and functionality.
               <br />
-              - Founded The Qexle, delivering 50+ web and e-commerce solutions for global clients across 5+
-              countries.
+              <strong>Skills:</strong> Figma, Graphic Design, Web Development
+            </>
+          }
+          side="left"
+        />
+        <TimelineItem
+          title="Freelance Graphic Designer"
+          company="Boss Up Media"
+          duration="May 2024 - Nov 2024 · 7 mos"
+          location="Colombo, Western Province, Sri Lanka · Hybrid"
+          description={
+            <>
+              As a Graphic Designer at Boss Up Media, I create visually compelling and impactful designs that
+              elevate our clients' brands. With a passion for creativity and a keen eye for detail, I specialize
+              in producing a wide range of digital and print materials, including logos, marketing collateral,
+              and social media graphics.
               <br />
-              - Designed and developed responsive, user-focused web applications using React.js, Node.js, and
-              modern CMS platforms like WordPress, improving client user engagement by 30%.
-              <br />
-              - Increased client sales by up to 20% through strategic UX/UI design and SEO-optimized solutions.
-            </Typography>
-            <Divider sx={{ my: 2, borderColor: '#333333' }} />
-            <Typography variant="body1" sx={{ color: '#a0a0a0', lineHeight: '1.8' }}>
-              <strong>Freelance UI/UX, Graphic and Web Designer</strong>
-              <br />
-              Upwork & Fiverr | Aug 2016 - Mar 2024
-              <br />
-              - Completed 300+ projects over 7 years, including 100+ web development and 120+ UI/UX design
-              projects for clients worldwide.
-              <br />
-              - Designed and developed responsive, user-centric websites using React, Node.js, HTML, CSS, and
-              JavaScript, enhancing client conversions by up to 20%.
-              <br />
-              - Maintained a 95%+ client satisfaction rating through consistent, high-quality deliverables and
-              timely project completion.
-            </Typography>
-          </Box>
-        </Grid>
-      </Grid>
+              <strong>Skills:</strong> Adobe Illustrator, Adobe Photoshop, Graphic Design
+            </>
+          }
+          side="right"
+        />
+      </Box>
     </div>
+  );
+};
+
+// Timeline Item Component
+const TimelineItem = ({ title, company, duration, location, description, side }) => {
+  const isLeft = side === 'left';
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: isLeft ? 'flex-start' : 'flex-end',
+        alignItems: 'center',
+        position: 'relative',
+        marginBottom: '60px',
+      }}
+    >
+      {/* Circle Marker */}
+      <Box
+        sx={{
+          position: 'absolute',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '12px',
+          height: '12px',
+          backgroundColor: '#0070f3',
+          borderRadius: '50%',
+          border: '3px solid #111111',
+          zIndex: 2,
+        }}
+      />
+
+      {/* Content Box */}
+      <Box
+        sx={{
+          backgroundColor: '#1e1e1e',
+          padding: '24px',
+          borderRadius: '8px',
+          width: 'calc(50% - 40px)',
+          marginLeft: isLeft ? '0' : 'auto',
+          marginRight: isLeft ? 'auto' : '0',
+          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+          '&:hover': {
+            transform: 'translateY(-5px)',
+            boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.3)',
+          },
+        }}
+      >
+        <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', fontWeight: 'bold' }}>
+          {title}
+        </Typography>
+        <Typography variant="subtitle1" sx={{ color: '#0070f3', fontWeight: 'bold' }}>
+          {company}
+        </Typography>
+        <Typography variant="body2" sx={{ color: '#a0a0a0', marginTop: '8px' }}>
+          {duration} | {location}
+        </Typography>
+        <Typography variant="body1" sx={{ color: '#a0a0a0', marginTop: '16px', lineHeight: '1.8' }}>
+          {description}
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 
