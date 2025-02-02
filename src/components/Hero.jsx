@@ -32,6 +32,7 @@ const Hero = () => {
         backgroundPosition: 'center',
       }}
     >
+
       {/* Main Heading */}
       <Typography
         variant="h1"

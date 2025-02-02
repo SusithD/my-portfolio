@@ -60,7 +60,7 @@ const Projects = () => {
       id="projects"
       style={{
         padding: '80px 20px',
-        backgroundColor: '#000000', // Black background
+        backgroundColor: '#121212', // Dark background similar to previous sections
         color: '#ffffff', // White text
       }}
     >
@@ -93,14 +93,12 @@ const Projects = () => {
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Card
               sx={{
-                backgroundColor: '#111111', // Dark gray background
+                backgroundColor: '#1e1e1e', // Dark gray background
                 color: '#ffffff',
                 borderRadius: '8px',
-                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
                 transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                 '&:hover': {
-                  transform: 'translateY(-5px)',
-                  boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.3)',
+                  transform: 'translateY(-8px)',
                 },
               }}
             >
@@ -121,14 +119,25 @@ const Projects = () => {
                 <Typography
                   variant="h6"
                   gutterBottom
-                  sx={{ color: '#ffffff', fontWeight: 'bold' }}
+                  sx={{
+                    color: '#ffffff',
+                    fontWeight: 'bold',
+                    marginBottom: '16px',
+                  }}
                 >
                   {project.title}
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#a0a0a0', marginBottom: '16px' }}>
                   {project.description}
                 </Typography>
-                <Typography variant="caption" sx={{ color: '#bb86fc', display: 'block', marginBottom: '16px' }}>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: '#bb86fc',
+                    display: 'block',
+                    marginBottom: '16px',
+                  }}
+                >
                   <strong>Technologies:</strong> {project.technologies}
                 </Typography>
                 <Button
