@@ -16,7 +16,8 @@ const Hero = () => {
         NET({
           el: vantaRef.current,
           THREE,
-          color: 0xD3D3D3, // White glowing lines
+          color: 0xD3D3D3, // Dots color
+          lineColor: 0x2c2c2c, // Lines color
           backgroundColor: 0x000000, // Black background
           maxDistance: 20,
           spacing: 15,
@@ -53,11 +54,25 @@ const Hero = () => {
         position: "relative",
       }}
     >
+      {/* Black Overlay */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0, 0, 0, 0.9)", // Black with 50% opacity
+          zIndex: 1, // Ensures overlay is in front of Vanta effect
+        }}
+      ></div>
+
       {/* Animated Heading */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
+        style={{ position: "relative", zIndex: 2 }} // Make sure text is above overlay
       >
         <Typography
           variant="h1"
@@ -80,6 +95,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 1 }}
+        style={{ position: "relative", zIndex: 2 }} // Make sure text is above overlay
       >
         <Typography
           variant="h5"
@@ -98,6 +114,7 @@ const Hero = () => {
       <motion.div
         whileHover={{ scale: 1.1 }}
         transition={{ type: "spring", stiffness: 300 }}
+        style={{ position: "relative", zIndex: 2 }} // Make sure button is above overlay
       >
         <Button
           variant="outlined"
