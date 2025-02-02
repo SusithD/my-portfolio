@@ -1,98 +1,126 @@
-"use client"; // Mark this component as a Client Component
+"use client"; // Add this line at the top of your file
 
-import React from 'react';
-import { Typography, Button } from '@mui/material';
+import React, { useEffect, useRef, useState } from "react";
+import * as THREE from "three"; // Required for Vanta.js
+import NET from "vanta/dist/vanta.net.min"; // Import Vanta.js effect
+import { Typography, Button } from "@mui/material";
+import { motion } from "framer-motion"; // Import Framer Motion
 
 const Hero = () => {
+  const [vantaEffect, setVantaEffect] = useState(null);
+  const vantaRef = useRef(null);
+
+  useEffect(() => {
+    if (!vantaEffect) {
+      setVantaEffect(
+        NET({
+          el: vantaRef.current,
+          THREE,
+          color: 0xD3D3D3, // White glowing lines
+          backgroundColor: 0x000000, // Black background
+          maxDistance: 20,
+          spacing: 15,
+          showDots: true,
+        })
+      );
+    }
+    return () => {
+      if (vantaEffect) vantaEffect.destroy();
+    };
+  }, [vantaEffect]);
+
+  // Smooth scrolling function
   const handleScroll = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
     <div
+      ref={vantaRef}
       id="home"
       style={{
-        textAlign: 'center',
-        padding: '50px 20px',
-        backgroundColor: '#000000', // Black background
-        color: '#ffffff', // White text
-        minHeight: '100vh', // Full viewport height
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundImage: `
-          linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), 
-          url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjEwMCUiIHkyPSIxMDAlIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMSIgLz48L3N2Zz4=')
-        `, // Subtle diagonal lines pattern
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        textAlign: "center",
+        padding: "50px 20px",
+        color: "#ffffff", // White text
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "relative",
       }}
     >
-
-      {/* Main Heading */}
-      <Typography
-        variant="h1"
-        gutterBottom
-        sx={{
-          fontWeight: 'bold',
-          color: '#ffffff', // White text
-          fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem' }, // Responsive font size
-          marginBottom: '16px',
-          position: 'relative',
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            bottom: '-10px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '60px',
-            height: '4px',
-            backgroundColor: '#ffffff', // White underline
-          },
-        }}
+      {/* Animated Heading */}
+      <motion.div
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
       >
-        Hi, I'm Susith Deshan
-      </Typography>
+        <Typography
+          variant="h1"
+          gutterBottom
+          sx={{
+            fontWeight: "bold",
+            fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem" },
+            position: "relative",
+            background: "linear-gradient(90deg, #ffffff, #a0a0a0)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          Hi, I'm Susith Deshan
+        </Typography>
+      </motion.div>
 
-      {/* Subheading */}
-      <Typography
-        variant="h5"
-        gutterBottom
-        sx={{
-          color: '#a0a0a0', // Light gray text
-          fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }, // Responsive font size
-          marginBottom: '32px',
-        }}
+      {/* Animated Subheading */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 1 }}
       >
-        Software Engineering Student | Aspiring Developer
-      </Typography>
+        <Typography
+          variant="h5"
+          gutterBottom
+          sx={{
+            color: "#a0a0a0",
+            fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" },
+            marginBottom: "32px",
+          }}
+        >
+          Software Engineering Student | Aspiring Developer
+        </Typography>
+      </motion.div>
 
-      {/* Call-to-Action Button */}
-      <Button
-        variant="outlined"
-        sx={{
-          color: '#ffffff', // White text
-          borderColor: '#ffffff', // White border
-          borderRadius: '8px',
-          padding: '12px 24px',
-          fontSize: '1rem',
-          fontWeight: 'bold',
-          textTransform: 'none',
-          transition: 'all 0.3s ease',
-          '&:hover': {
-            backgroundColor: '#ffffff', // White background on hover
-            color: '#000000', // Black text on hover
-            borderColor: '#ffffff',
-          },
-        }}
-        onClick={() => handleScroll('projects')}
+      {/* Call-to-Action Button with Hover Effect */}
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        transition={{ type: "spring", stiffness: 300 }}
       >
-        View My Work
-      </Button>
+        <Button
+          variant="outlined"
+          sx={{
+            color: "#ffffff",
+            borderColor: "#ffffff",
+            borderRadius: "8px",
+            padding: "12px 24px",
+            fontSize: "1rem",
+            fontWeight: "bold",
+            textTransform: "none",
+            transition: "all 0.3s ease",
+            "&:hover": {
+              backgroundColor: "#ffffff",
+              color: "#000000",
+              borderColor: "#ffffff",
+            },
+          }}
+          onClick={() => handleScroll("projects")}
+        >
+          View My Work
+        </Button>
+      </motion.div>
     </div>
   );
 };
