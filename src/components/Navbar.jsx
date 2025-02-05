@@ -1,9 +1,8 @@
 "use client"; // Mark this component as a Client Component
 
-import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Box } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
+import React, { useState } from "react";
+import { AppBar, Toolbar, IconButton, Box } from "@mui/material";
+import { List, X, House, User, Briefcase, Envelope } from "phosphor-react"; // Modern & Minimal Icons
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,7 +10,7 @@ const Navbar = () => {
   const handleScroll = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setIsMobileMenuOpen(false); // Close mobile menu after clicking a link
   };
@@ -20,94 +19,78 @@ const Navbar = () => {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: '#000000', // Black background
-        boxShadow: 'none', // Remove shadow for clean look
-        padding: '0 24px',
+        backgroundColor: "rgba(255, 255, 255, 0.15)", // Subtle white shade
+        backdropFilter: "blur(10px)", // Soft blur effect
+        boxShadow: "none",
+        borderRadius: "10px", // Rounded corners
+        padding: "8px 24px",
+        top: "16px", // Keep it near the top
+        left: "50%", // Center horizontally
+        transform: "translateX(-50%)", // Align properly
+        zIndex: 999,
+        width: "fit-content",
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center', padding: '8px 24px' }}>
-        {/* Logo or Name */}
-        <Typography
-          variant="h6"
+      <Toolbar sx={{ justifyContent: "center", alignItems: "center" }}>
+        {/* Desktop Navigation Links (Centered Icons) */}
+        <Box
           sx={{
-            fontWeight: 'bold',
-            color: '#ffffff', // White text
-            cursor: 'pointer',
-            '&:hover': {
-              opacity: 0.8,
-            },
+            display: { xs: "none", sm: "flex" },
+            gap: "16px",
+            alignItems: "center",
+            backgroundColor: "rgba(255, 255, 255, 0.1)", // Slight contrast
+            borderRadius: "10px",
+            padding: "8px 16px",
           }}
-          onClick={() => handleScroll('home')}
         >
-          Susith Deshan
-        </Typography>
-
-        {/* Desktop Navigation Links */}
-        <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: '24px' }}>
-          <Button
+          <IconButton
             color="inherit"
-            onClick={() => handleScroll('home')}
+            onClick={() => handleScroll("home")}
             sx={{
-              textTransform: 'none',
-              fontWeight: 'bold',
-              color: '#ffffff',
-              '&:hover': {
-                textDecoration: 'underline', // Simple underline on hover
-                textDecorationColor: '#ffffff',
-                textDecorationThickness: '2px',
+              color: "#ffffff",
+              "&:hover": {
+                color: "#40ffaa",
               },
             }}
           >
-            Home
-          </Button>
-          <Button
+            <House size={24} weight="bold" />
+          </IconButton>
+          <IconButton
             color="inherit"
-            onClick={() => handleScroll('about')}
+            onClick={() => handleScroll("about")}
             sx={{
-              textTransform: 'none',
-              fontWeight: 'bold',
-              color: '#ffffff',
-              '&:hover': {
-                textDecoration: 'underline',
-                textDecorationColor: '#ffffff',
-                textDecorationThickness: '2px',
+              color: "#ffffff",
+              "&:hover": {
+                color: "#40ffaa",
               },
             }}
           >
-            About
-          </Button>
-          <Button
+            <User size={24} weight="bold" />
+          </IconButton>
+          <IconButton
             color="inherit"
-            onClick={() => handleScroll('projects')}
+            onClick={() => handleScroll("projects")}
             sx={{
-              textTransform: 'none',
-              fontWeight: 'bold',
-              color: '#ffffff',
-              '&:hover': {
-                textDecoration: 'underline',
-                textDecorationColor: '#ffffff',
-                textDecorationThickness: '2px',
+              color: "#ffffff",
+              "&:hover": {
+                color: "#40ffaa",
               },
             }}
           >
-            Projects
-          </Button>
-          <Button
+            <Briefcase size={24} weight="bold" />
+          </IconButton>
+          <IconButton
             color="inherit"
-            onClick={() => handleScroll('contact')}
+            onClick={() => handleScroll("contact")}
             sx={{
-              textTransform: 'none',
-              fontWeight: 'bold',
-              color: '#ffffff',
-              '&:hover': {
-                textDecoration: 'underline',
-                textDecorationColor: '#ffffff',
-                textDecorationThickness: '2px',
+              color: "#ffffff",
+              "&:hover": {
+                color: "#40ffaa",
               },
             }}
           >
-            Contact
-          </Button>
+            <Envelope size={24} weight="bold" />
+          </IconButton>
         </Box>
 
         {/* Mobile Menu Icon */}
@@ -116,71 +99,78 @@ const Navbar = () => {
           color="inherit"
           aria-label="menu"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          sx={{ display: { xs: 'block', sm: 'none' }, color: '#ffffff' }}
+          sx={{ display: { xs: "block", sm: "none" }, color: "#ffffff" }}
         >
-          {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          {isMobileMenuOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
         </IconButton>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu (Floating Icons) */}
         {isMobileMenuOpen && (
           <Box
             sx={{
-              display: { xs: 'flex', sm: 'none' },
-              flexDirection: 'column',
-              gap: '16px',
-              position: 'absolute',
-              top: '64px',
-              right: '24px',
-              backgroundColor: '#111111', // Dark gray background
-              padding: '16px',
-              borderRadius: '8px',
-              boxShadow: '0px 4px 10px rgba(255, 255, 255, 0.1)', // Subtle shadow
+              display: { xs: "flex", sm: "none" },
+              flexDirection: "column",
+              gap: "16px",
+              position: "fixed",
+              top: "16px", // Keep it near the top
+              left: "50%",
+              transform: "translateX(-50%)",
+              backgroundColor: "rgba(255, 255, 255, 0.15)", // Soft white overlay
+              backdropFilter: "blur(10px)",
+              borderRadius: "24px",
+              padding: "16px",
+              boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
+              zIndex: 9999,
             }}
           >
-            <Button
+            <IconButton
               color="inherit"
-              onClick={() => handleScroll('home')}
+              onClick={() => handleScroll("home")}
               sx={{
-                textTransform: 'none',
-                fontWeight: 'bold',
-                color: '#ffffff',
+                color: "#ffffff",
+                "&:hover": {
+                  color: "#40ffaa",
+                },
               }}
             >
-              Home
-            </Button>
-            <Button
+              <House size={24} weight="bold" />
+            </IconButton>
+            <IconButton
               color="inherit"
-              onClick={() => handleScroll('about')}
+              onClick={() => handleScroll("about")}
               sx={{
-                textTransform: 'none',
-                fontWeight: 'bold',
-                color: '#ffffff',
+                color: "#ffffff",
+                "&:hover": {
+                  color: "#40ffaa",
+                },
               }}
             >
-              About
-            </Button>
-            <Button
+              <User size={24} weight="bold" />
+            </IconButton>
+            <IconButton
               color="inherit"
-              onClick={() => handleScroll('projects')}
+              onClick={() => handleScroll("projects")}
               sx={{
-                textTransform: 'none',
-                fontWeight: 'bold',
-                color: '#ffffff',
+                color: "#ffffff",
+                "&:hover": {
+                  color: "#40ffaa",
+                },
               }}
             >
-              Projects
-            </Button>
-            <Button
+              <Briefcase size={24} weight="bold" />
+            </IconButton>
+            <IconButton
               color="inherit"
-              onClick={() => handleScroll('contact')}
+              onClick={() => handleScroll("contact")}
               sx={{
-                textTransform: 'none',
-                fontWeight: 'bold',
-                color: '#ffffff',
+                color: "#ffffff",
+                "&:hover": {
+                  color: "#40ffaa",
+                },
               }}
             >
-              Contact
-            </Button>
+              <Envelope size={24} weight="bold" />
+            </IconButton>
           </Box>
         )}
       </Toolbar>
