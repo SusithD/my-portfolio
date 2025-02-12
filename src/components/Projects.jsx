@@ -10,7 +10,7 @@ const projects = [
       'A web and mobile application for managing tree health, harvesting, and coconut plantation management. Developed with React, Node.js, and MySQL.',
     technologies: 'React, Node.js, MySQL, Java',
     link: 'https://github.com/susith-deshan/greentips',
-    image: '/images/greentips.png', // Add image path
+    image: '/images/greentips-mobile.jpeg', // Add image path
   },
   {
     title: 'Secure Mental Health Management Web Application',
@@ -18,7 +18,7 @@ const projects = [
       'A secure mental health app emphasizing accessibility and data privacy. Built with React, Node.js, PostgreSQL, and OAuth 2.0.',
     technologies: 'React, Node.js, PostgreSQL, OAuth 2.0',
     link: 'https://github.com/susith-deshan/mental-health-app',
-    image: '/images/mental-health.png', // Add image path
+    image: '/images/mental-health.jpeg', // Add image path
   },
   {
     title: 'Sri Lankan Fake Currency Note Recognition',
@@ -26,7 +26,7 @@ const projects = [
       'An AI-powered web app for authenticating Sri Lankan currency using deep learning and image processing.',
     technologies: 'Python, TensorFlow, OpenCV',
     link: 'https://github.com/susith-deshan/currency-recognition',
-    image: '/images/currency-recognition.png', // Add image path
+    image: '/images/currency-detection.jpeg', // Add image path
   },
   {
     title: 'Python Programming Assistant Chatbot',
@@ -50,7 +50,7 @@ const projects = [
       'A responsive, SEO-driven website highlighting UI/UX design excellence with intuitive navigation and CMS integration.',
     technologies: 'WordPress, Figma, SEO',
     link: 'https://github.com/susith-deshan/qexle-portfolio',
-    image: '/images/qexle-portfolio.png', // Add image path
+    image: '/images/1729441306287.jpegv ', // Add image path
   },
 ];
 
