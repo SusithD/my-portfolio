@@ -11,10 +11,7 @@ import {
   TimelineConnector,
   TimelineContent,
 } from "@mui/lab";
-import WorkIcon from "@mui/icons-material/Work";
-import SchoolIcon from "@mui/icons-material/School";
-import CodeIcon from "@mui/icons-material/Code";
-import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import { Briefcase, GraduationCap, Code2, Palette } from 'lucide-react';
 
 const About = () => {
   // Animation variants
@@ -24,16 +21,6 @@ const About = () => {
       opacity: 1, 
       y: 0,
       transition: { duration: 0.6 }
-    }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
     }
   };
 
@@ -49,21 +36,15 @@ const About = () => {
         py: { xs: 8, md: 12 }
       }}
     >
-      {/* Background gradient orbs */}
+      {/* Background gradient */}
       <Box
-        component={motion.div}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.15 }}
-        transition={{ duration: 1.5 }}
         sx={{
           position: "absolute",
-          width: "600px",
-          height: "600px",
-          borderRadius: "100%",
-          background: "radial-gradient(circle at center, rgba(100,100,255,0.5), rgba(100,100,255,0) 70%)",
-          top: "-300px",
-          right: "-100px",
-          filter: "blur(60px)",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "radial-gradient(circle at center, rgba(99, 102, 241, 0.1), transparent 70%)",
           zIndex: 0
         }}
       />
@@ -79,15 +60,14 @@ const About = () => {
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: "2rem", md: "3rem" },
-              fontWeight: 800,
+              fontSize: { xs: "2.5rem", md: "3.5rem" },
+              fontWeight: 700,
               textAlign: "center",
               mb: 8,
               background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              color: "transparent"
             }}
           >
             About Me
@@ -111,9 +91,10 @@ const About = () => {
                   borderRadius: "24px",
                   border: "1px solid rgba(255,255,255,0.1)",
                   backdropFilter: "blur(10px)",
-                  transition: "transform 0.3s ease",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
                   "&:hover": {
-                    transform: "translateY(-5px)"
+                    transform: "translateY(-5px)",
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
                   }
                 }}
               >
@@ -122,7 +103,10 @@ const About = () => {
                   sx={{
                     mb: 3,
                     fontWeight: 600,
-                    color: "#fff"
+                    background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
                   }}
                 >
                   Profile
@@ -160,9 +144,10 @@ const About = () => {
                   borderRadius: "24px",
                   border: "1px solid rgba(255,255,255,0.1)",
                   backdropFilter: "blur(10px)",
-                  transition: "transform 0.3s ease",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
                   "&:hover": {
-                    transform: "translateY(-5px)"
+                    transform: "translateY(-5px)",
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
                   }
                 }}
               >
@@ -171,22 +156,34 @@ const About = () => {
                   sx={{
                     mb: 3,
                     fontWeight: 600,
-                    color: "#fff"
+                    background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
                   }}
                 >
                   Education
                 </Typography>
                 <Box sx={{ color: "rgba(255,255,255,0.7)" }}>
-                  <Typography variant="h6" sx={{ mb: 1, color: "#fff" }}>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      mb: 1,
+                      background: "linear-gradient(to right, #fff, rgba(255,255,255,0.9))",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
                     Bachelor of Software Engineering (Honours)
                   </Typography>
-                  <Typography variant="body1" sx={{ mb: 2 }}>
+                  <Typography variant="body1" sx={{ mb: 2, color: "rgba(255,255,255,0.7)" }}>
                     National Institute of Business Management (NIBM), Sri Lanka
                   </Typography>
-                  <Typography variant="body2" sx={{ mb: 2 }}>
+                  <Typography variant="body2" sx={{ mb: 2, color: "rgba(255,255,255,0.6)" }}>
                     Expected Graduation: 2026 | GPA: 3.80/4.0
                   </Typography>
-                  <Typography variant="body2">
+                  <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.6)" }}>
                     Relevant Courses: Data Structures and Algorithms,
                     Object-Oriented Programming, Web Application Development
                   </Typography>
@@ -201,7 +198,7 @@ const About = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={staggerContainer}
+              variants={fadeInUp}
             >
               <Box
                 sx={{
@@ -210,7 +207,12 @@ const About = () => {
                   borderRadius: "24px",
                   border: "1px solid rgba(255,255,255,0.1)",
                   backdropFilter: "blur(10px)",
-                  mt: 4
+                  mt: 4,
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-5px)",
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+                  }
                 }}
               >
                 <Typography
@@ -218,137 +220,69 @@ const About = () => {
                   sx={{
                     mb: 4,
                     fontWeight: 600,
-                    color: "#fff"
+                    background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
                   }}
                 >
                   Experience
                 </Typography>
                 <Timeline position="alternate">
-                  <TimelineItem>
-                    <TimelineSeparator>
-                      <TimelineDot sx={{ backgroundColor: "#0d6efd" }}>
-                        <WorkIcon />
-                      </TimelineDot>
-                      <TimelineConnector sx={{ backgroundColor: "#0d6efd" }} />
-                    </TimelineSeparator>
-                    <TimelineContent>
-                      <Typography variant="h6" sx={{ color: "#fff" }}>
-                        Software Engineer Intern
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        CoverageX · Jan 2025 - Present
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Colombo, Western Province, Sri Lanka · On-site
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
-                        Skills: User Experience (UX), React.js and more
-                      </Typography>
-                    </TimelineContent>
-                  </TimelineItem>
-
-                  <TimelineItem>
-                    <TimelineSeparator>
-                      <TimelineDot sx={{ backgroundColor: "#0d6efd" }}>
-                        <WorkIcon />
-                      </TimelineDot>
-                      <TimelineConnector sx={{ backgroundColor: "#0d6efd" }} />
-                    </TimelineSeparator>
-                    <TimelineContent>
-                      <Typography variant="h6" sx={{ color: "#fff" }}>
-                        Co-Founder & CEO
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        The qexle · Dec 2019 - Present
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Malabe, Western Province, Sri Lanka
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
-                        As the founder of The qexle, I drive strategic growth and oversee all facets of the business, from client acquisition to project delivery. The qexle specializes in Branding & Strategy, Web Development, Digital Marketing, and SEO Services, aiming to empower businesses with innovative solutions tailored for their digital success.
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
-                        Skills: Branding & Identity Design, Digital Marketing and more
-                      </Typography>
-                    </TimelineContent>
-                  </TimelineItem>
-
-                  <TimelineItem>
-                    <TimelineSeparator>
-                      <TimelineDot sx={{ backgroundColor: "#0d6efd" }}>
-                        <WorkIcon />
-                      </TimelineDot>
-                      <TimelineConnector sx={{ backgroundColor: "#0d6efd" }} />
-                    </TimelineSeparator>
-                    <TimelineContent>
-                      <Typography variant="h6" sx={{ color: "#fff" }}>
-                        User Interface Designer
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Upwork · Aug 2016 - Present
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Remote · Part-time
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
-                        As a part-time UI designer on Upwork for eight years, I've honed my skills in creating visually appealing, intuitive, and user-centered interfaces. Successfully completed over 300+ projects with high client satisfaction, specializing in minimal, modern, and user-friendly UI designs.
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
-                        Skills: Figma, Graphic Design and more
-                      </Typography>
-                    </TimelineContent>
-                  </TimelineItem>
-
-                  <TimelineItem>
-                    <TimelineSeparator>
-                      <TimelineDot sx={{ backgroundColor: "#0d6efd" }}>
-                        <WorkIcon />
-                      </TimelineDot>
-                      <TimelineConnector sx={{ backgroundColor: "#0d6efd" }} />
-                    </TimelineSeparator>
-                    <TimelineContent>
-                      <Typography variant="h6" sx={{ color: "#fff" }}>
-                        Web Designer
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Fiverr · Apr 2016 - Present
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Remote · Part-time
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
-                        Developed custom, user-friendly websites that help clients stand out online. Focus on creating engaging, visually appealing designs that prioritize user experience and functionality.
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
-                        Skills: Figma, Graphic Design and more
-                      </Typography>
-                    </TimelineContent>
-                  </TimelineItem>
-
-                  <TimelineItem>
-                    <TimelineSeparator>
-                      <TimelineDot sx={{ backgroundColor: "#0d6efd" }}>
-                        <WorkIcon />
-                      </TimelineDot>
-                    </TimelineSeparator>
-                    <TimelineContent>
-                      <Typography variant="h6" sx={{ color: "#fff" }}>
-                        Freelance Graphic Designer
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Boss Up Media · May 2024 - Nov 2024
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Colombo, Western Province, Sri Lanka · Hybrid
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
-                        Created visually compelling and impactful designs that elevate clients' brands. Specialized in producing digital and print materials, including logos, marketing collateral, and social media graphics.
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
-                        Skills: Adobe Illustrator, Adobe Photoshop and more
-                      </Typography>
-                    </TimelineContent>
-                  </TimelineItem>
+                  {experiences.map((exp, index) => (
+                    <TimelineItem key={index}>
+                      <TimelineSeparator>
+                        <TimelineDot 
+                          sx={{ 
+                            backgroundColor: 'transparent',
+                            border: '2px solid rgba(255,255,255,0.2)',
+                            p: 1
+                          }}
+                        >
+                          <Box component={motion.div} whileHover={{ scale: 1.2 }}>
+                            {exp.icon}
+                          </Box>
+                        </TimelineDot>
+                        {index !== experiences.length - 1 && (
+                          <TimelineConnector sx={{ backgroundColor: 'rgba(255,255,255,0.2)' }} />
+                        )}
+                      </TimelineSeparator>
+                      <TimelineContent>
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                        >
+                          <Typography 
+                            variant="h6" 
+                            sx={{ 
+                              background: "linear-gradient(to right, #fff, rgba(255,255,255,0.9))",
+                              WebkitBackgroundClip: "text",
+                              WebkitTextFillColor: "transparent",
+                              backgroundClip: "text",
+                              fontWeight: 600,
+                              mb: 1
+                            }}
+                          >
+                            {exp.title}
+                          </Typography>
+                          <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
+                            {exp.company} · {exp.period}
+                          </Typography>
+                          <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
+                            {exp.location}
+                          </Typography>
+                          <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
+                            {exp.description}
+                          </Typography>
+                          <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.6)", mt: 1 }}>
+                            Skills: {exp.skills}
+                          </Typography>
+                        </motion.div>
+                      </TimelineContent>
+                    </TimelineItem>
+                  ))}
                 </Timeline>
               </Box>
             </motion.div>
@@ -358,5 +292,54 @@ const About = () => {
     </Box>
   );
 };
+
+// Experience data
+const experiences = [
+  {
+    title: "Software Engineer Intern",
+    company: "CoverageX",
+    period: "Jan 2025 - Present",
+    location: "Colombo, Western Province, Sri Lanka · On-site",
+    description: "Working on full-stack development using modern technologies.",
+    skills: "User Experience (UX), React.js",
+    icon: <Code2 size={20} color="rgba(255,255,255,0.7)" />
+  },
+  {
+    title: "Graphic Designer",
+    company: "Boss Up Media",
+    period: "May 2024 - Nov 2024",
+    location: "Colombo, Western Province, Sri Lanka · Hybrid",
+    description: "As a Graphic Designer at Boss Up Media, I create visually compelling and impactful designs that elevate our clients' brands. With a passion for creativity and a keen eye for detail, I specialize in producing a wide range of digital and print materials, including logos, marketing collateral, social media graphics, and more. My goal is to blend artistic innovation with strategic thinking to deliver designs that not only look great but also effectively communicate our clients' messages.",
+    skills: "Adobe Illustrator, Adobe Photoshop, Graphic Design, Brand Identity",
+    icon: <Palette size={20} color="rgba(255,255,255,0.7)" />
+  },
+  {
+    title: "Co-Founder & CEO",
+    company: "The qexle",
+    period: "Dec 2019 - Present",
+    location: "Malabe, Western Province, Sri Lanka",
+    description: "As the founder of The qexle, I drive strategic growth and oversee all facets of the business, from client acquisition to project delivery. The qexle specializes in Branding & Strategy, Web Development, Digital Marketing, and SEO Services, aiming to empower businesses with innovative solutions tailored for their digital success. I lead a team dedicated to delivering exceptional digital experiences that align with our clients’ business goals.",
+    skills: "Branding & Identity Design, Digital Marketing",
+    icon: <Briefcase size={20} color="rgba(255,255,255,0.7)" />
+  },
+  {
+    title: "User Interface Designer",
+    company: "Upwork", 
+    period: "Aug 2016 - Present",
+    location: "Remote · Part-time",
+    description: "As a part-time UI designer on Upwork for eight years, I've honed my skills in creating visually appealing, intuitive, and user-centered interfaces for a wide range of clients and industries. I am experienced in crafting designs that blend functionality with aesthetic appeal, ensuring a seamless user experience across web and mobile platforms. My responsibilities included understanding client requirements, conducting UX research, designing responsive layouts, and iterating based on user feedback. Throughout my time on Upwork, I've collaborated with international clients, consistently meeting project deadlines while adapting to diverse project needs. My commitment to continuous learning and client satisfaction has led to repeat business and positive reviews. Key achievements include: Successfully completing over 300+ projects with high client satisfaction, specializing in minimal, modern, and user-friendly UI designs, and consistently delivering responsive, high-quality designs under tight timelines.",
+    skills: "Figma, Graphic Design",
+    icon: <Palette size={20} color="rgba(255,255,255,0.7)" />
+  },
+  {
+    title: "Web Designer",
+    company: "Fiverr",
+    period: "Apr 2016 - Present",
+    location: "Remote · Part-time",
+    description: "As a freelance web designer on Fiverr for eight years, I have developed custom, user-friendly websites that help clients stand out online. My work spans a range of industries, focusing on creating engaging, visually appealing designs that prioritize user experience and functionality. From concept to completion, I deliver responsive, SEO-friendly websites tailored to each client’s unique brand identity and goals.",
+    skills: "Web Design, UI/UX Design",
+    icon: <Code2 size={20} color="rgba(255,255,255,0.7)" />
+  }
+];
 
 export default About;
