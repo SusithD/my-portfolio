@@ -24,15 +24,15 @@ const Projects = () => {
     { label: 'Branding', value: 'branding' }
   ];
 
-  const projects = [
-    {
+const projects = [
+  {
       title: "Plantation Field Management System Mobile Application",
       description: "A mobile application designed to streamline operations for Greentips Plantation, managing over 250 acres of coconut and intercrop plantations. The app automates data handling and enables real-time task management for all team members from field workers to executives.",
-      image: "/images/greentips-mobile.jpeg",
+      image: "/images/Greentips-mobile.png",
       technologies: ["Figma", "Prototyping", "Wireframing", "UX/UI Design"],
       category: ["mobile", "design"],
-      github: "https://github.com/yourusername/plantation-mobile",
-      demo: "#",
+      github: "https://github.com/SusithD/Greentips",
+      demo: "https://www.behance.net/gallery/212189209/Greentips-Plantation-Management-System-UIUX-Design",
       role: "UI/UX Designer",
       duration: "Oct 2024 - Present",
       organization: "Academic Project",
@@ -48,9 +48,9 @@ const Projects = () => {
       description: "An AI-powered chatbot designed to assist users with Python programming queries, providing coding solutions, explanations, and debugging support. The chatbot was trained on a custom dataset of Python-related challenges.",
       image: "/images/1734026766185.jpeg", 
       technologies: ["Python", "Hugging Face Transformers", "Flask", "MongoDB", "TensorFlow", "PyTorch", "RESTful APIs"],
-      category: ["ai", "fullstack"],
-      github: "https://github.com/yourusername/python-chatbot",
-      demo: "#",
+      category: ["ai", "fullstack", "design", "web"],
+      github: "https://github.com/SusithD/chatbot_project",
+      demo: "https://github.com/SusithD/chatbot_project",
       role: "Developer",
       duration: "Dec 2024",
       organization: "Academic Project",
@@ -64,10 +64,10 @@ const Projects = () => {
     {
       title: "SGSENSE Web Application",
       description: "A collaborative project aimed at enhancing user experience and operational efficiency for SGSENSE, an Australian leader in Force and Torque Measurement solutions.",
-      image: "/projects/sgsense.jpg",
+      image: "/images/sgsense.png",
       technologies: ["Web Development", "UI/UX Design", "Figma", "Wireframing", "Prototyping"],
       category: ["web", "design", "ecommerce"],
-      github: "https://github.com/yourusername/sgsense",
+      github: "https://sgsensetech.com",
       demo: "https://sgsensetech.com",
       role: "Web Designer and Developer",
       duration: "Jan 2024 - Dec 2024",
@@ -84,9 +84,9 @@ const Projects = () => {
       description: "A user-centric website designed to showcase branding, digital marketing, and web development services with optimized performance and SEO integration.",
       image: "/images/1729441306287.jpeg",
       technologies: ["WordPress", "Web Development", "Project Management", "UI/UX", "SEO"],
-      category: ["web"],
-      github: "https://github.com/yourusername/qexle",
-      demo: "#",
+      category: ["web", "design", "ecommerce"],
+      github: "https://theqexle.com/",
+      demo: "https://theqexle.com/",
       role: "Web Developer",
       duration: "Jul 2024 - Dec 2024",
       organization: "Academic Project",
@@ -100,11 +100,11 @@ const Projects = () => {
     {
       title: "Todo Dashboard Web Application",
       description: "A full-featured Todo Dashboard Web Application empowering users to manage tasks efficiently with advanced features and an interactive interface.",
-      image: "/projects/todo-dashboard.jpg",
+      image: "/images/to-do.png",
       technologies: ["React.js", "Tailwind CSS", "Node.js", "Express.js", "MongoDB"],
       category: ["web", "design", "fullstack"],
-      github: "https://github.com/yourusername/todo-dashboard",
-      demo: "#",
+      github: "https://github.com/SusithD/ToDo-List-Web-Application",
+      demo: "https://github.com/SusithD/ToDo-List-Web-Application",
       role: "Designer and Developer",
       duration: "Dec 2024",
       organization: "Academic Project",
@@ -120,9 +120,9 @@ const Projects = () => {
       description: "A secure, private platform designed to provide accessible mental well-being support, offering personalized resources, therapist communication, and self-help tools.",
       image: "/images/mental-health.jpeg",
       technologies: ["Node.js", "REST APIs", "JWT", "React.js", "HTML/CSS/JavaScript"],
-      category: ["security", "fullstack"],
-      github: "https://github.com/yourusername/mental-health",
-      demo: "#",
+      category: ["security", "fullstack", "design", "web"],
+      github: "https://github.com/SusithD/folder-mental-health-platform",
+      demo: "https://github.com/SusithD/folder-mental-health-platform",
       role: "Developer",
       duration: "Nov 2024",
       organization: "Academic Project",
@@ -138,9 +138,9 @@ const Projects = () => {
       description: "A Flask-based application that authenticates Sri Lankan currency using digital image processing and machine learning, verifying currency through automated detection.",
       image: "/images/currency-detection.jpeg",
       technologies: ["Machine Learning", "Deep Learning", "Flask", "Python", "OpenCV", "TensorFlow", "PyTorch"],
-      category: ["ai"],
-      github: "https://github.com/yourusername/currency-recognition",
-      demo: "#",
+      category: ["ai", "fullstack", "design", "web"],
+      github: "https://github.com/SusithD/Fake-Money-Detector",
+      demo: "https://github.com/SusithD/Fake-Money-Detector",
       role: "Developer",
       duration: "Nov 2024",
       organization: "Academic Project",
@@ -154,11 +154,11 @@ const Projects = () => {
     {
       title: "FoodiHut - Android Application",
       description: "An Android mobile application connecting food enthusiasts with exclusive promotions from a food store chain, enabling online ordering and branch navigation.",
-      image: "/projects/foodihut.jpg",
+      image: "/images/Foodiehut.png",
       technologies: ["Android Development", "UI/UX Design", "Figma"],
       category: ["mobile", "design"],
-      github: "https://github.com/yourusername/foodihut",
-      demo: "#",
+      github: "https://github.com/SusithD/foodiehut",
+      demo: "https://github.com/SusithD/foodiehut",
       role: "UI Designer and Backend Developer",
       duration: "Aug 2024 - Sep 2024",
       organization: "Academic Project",
@@ -172,11 +172,11 @@ const Projects = () => {
     {
       title: "Arduino Robot Guide Rover",
       description: "A navigation assistance system designed for autonomous robots, utilizing Arduino technology to guide the rover through obstacles with real-time detection and avoidance.",
-      image: "/projects/arduino-rover.jpg",
+      image: "/images/guide-robot.png",
       technologies: ["Arduino", "C++", "HTML", "CSS"],
-      category: ["iot"],
-      github: "https://github.com/yourusername/arduino-rover",
-      demo: "#",
+      category: ["iot", "design", "web"],
+      github: "https://github.com/SusithD/Guide-Rover",
+      demo: "https://youtu.be/wdSW6vEXCxk?si=Zd4oI6mB3SMccQ6G",
       role: "Developer",
       duration: "Feb-Mar 2024",
       organization: "Academic Project",
@@ -190,11 +190,11 @@ const Projects = () => {
     {
       title: "Blvck Paris Web Application",
       description: "An e-commerce platform built to showcase and sell clothing, integrating a dynamic product catalog with filtering and search functionality.",
-      image: "/projects/blvck-paris.jpg",
+      image: "/images/black-paris.png",
       technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Figma"],
       category: ["ecommerce", "design"],
-      github: "https://github.com/yourusername/blvck-paris",
-      demo: "#",
+      github: "https://github.com/SusithD/Blvck-Paris-Web-Application",
+      demo: "https://youtu.be/0-j3NOPL_1g?si=ip1vI--5LC-zXYLA",
       role: "Developer",
       duration: "Feb-Mar 2024",
       organization: "Academic Project",
@@ -208,11 +208,10 @@ const Projects = () => {
     {
       title: "Landing Page UI Design (Concept)",
       description: "A conceptual landing page design project focused on creating an engaging and user-friendly web interface with modern and intuitive design elements.",
-      image: "/projects/landing-page.jpg",
       technologies: ["Figma", "Graphic Design"],
+      image: "/images/wildlie.png",
       category: ["web", "design"],
-      github: "#",
-      demo: "#",
+      demo: "https://www.behance.net/gallery/146284501/Landing-Page-Ui-Design",
       role: "UI Designer",
       duration: "Jun 2022",
       organization: "The qexle",
@@ -225,11 +224,11 @@ const Projects = () => {
     {
       title: "Logo Design for Gyroction",
       description: "Brand identity design for Gyroction, creating a distinctive and memorable logo that represents the company's values and services.",
-      image: "/projects/gyroction-logo.jpg",
+      image: "/images/Gyroction.png",
       technologies: ["Graphic Design"],
       category: ["branding"],
-      github: "#",
-      demo: "#",
+      github: "https://www.behance.net/gallery/145776937/Logo-Design-for-Gyroction",
+      demo: "https://www.behance.net/gallery/145776937/Logo-Design-for-Gyroction",
       role: "Graphic Designer",
       duration: "Jun 2022",
       organization: "The qexle, Gyroction",
@@ -242,11 +241,11 @@ const Projects = () => {
     {
       title: "Logo Design for Kozha Leather Collections",
       description: "Development of a professional brand identity for Kozha Leather Collections through strategic logo design, conveying quality and craftsmanship.",
-      image: "/projects/kozha-logo.jpg",
+      image: "/images/kozha.png",
       technologies: ["Graphic Design"],
       category: ["branding"],
-      github: "#",
-      demo: "#",
+      github: "https://www.behance.net/gallery/144036805/Logo-Design-For-Kozha-Leather-Collections",
+      demo: "https://www.behance.net/gallery/144036805/Logo-Design-For-Kozha-Leather-Collections",
       role: "Graphic Designer",
       duration: "Mar 2022",
       organization: "The qexle, Kozha Leather Collections",
@@ -259,11 +258,11 @@ const Projects = () => {
     {
       title: "Logo Design for NOIR Interior Design Company",
       description: "Creation of a professional virtual identity for NOIR, an Interior Design Company, through distinctive logo design.",
-      image: "/projects/noir-logo.jpg",
+      image: "/images/noir.png",
       technologies: ["Graphic Design"],
       category: ["branding"],
-      github: "#",
-      demo: "#",
+      github: "https://www.behance.net/gallery/143551429/Logo-design-for-NOIR-Interior-Design-Company",
+      demo: "https://www.behance.net/gallery/143551429/Logo-design-for-NOIR-Interior-Design-Company",
       role: "Graphic Designer",
       duration: "Feb 2022",
       organization: "NOIR Interior Design Company",
@@ -276,11 +275,11 @@ const Projects = () => {
     {
       title: "Logo Design for Organic Beltline",
       description: "Brand identity design for Organic Beltline, focusing on representing the company's organic values through visual elements.",
-      image: "/projects/organic-beltline-logo.jpg",
+      image: "/images/oraganic.png",
       technologies: ["Graphic Design"],
       category: ["branding"],
-      github: "#",
-      demo: "#",
+      github: "https://www.behance.net/gallery/143551981/Logo-design-for-Organic-Beltline",
+      demo: "https://www.behance.net/gallery/143551981/Logo-design-for-Organic-Beltline",
       role: "Graphic Designer",
       duration: "Feb 2022",
       organization: "Organic Beltline",
@@ -291,13 +290,13 @@ const Projects = () => {
       ]
     },
     {
-      title: "Rebranding Logo of The qexle Team",
+      title: "Rebranding Logo of The qexle",
       description: "A rebranding project for The qexle team, incorporating minimalistic design principles and strategic color choices to enhance brand recognition.",
-      image: "/projects/qexle-rebrand.jpg",
+      image: "/images/theqexle.png",
       technologies: ["Graphic Design"],
       category: ["branding"],
-      github: "#",
-      demo: "#",
+      github: "https://www.behance.net/gallery/137769287/The-qexle-logo-rebranding",
+      demo: "https://www.behance.net/gallery/137769287/The-qexle-logo-rebranding",
       role: "Graphic Designer",
       duration: "Feb 2022",
       organization: "The qexle",
@@ -311,11 +310,11 @@ const Projects = () => {
     {
       title: "Logo Design for Bistro Coffee Shop",
       description: "Brand identity design for Bistro Coffee Shop in Anuradhapura, creating a logo that captures the welcoming and cozy atmosphere of the establishment.",
-      image: "/projects/bistro-logo.jpg",
+      image: "/images/bistro.png",
       technologies: ["Graphic Design"],
       category: ["branding"],
-      github: "#",
-      demo: "#",
+      github: "https://www.behance.net/gallery/135068517/Logo-Design-for-Bistro-Coffee-shop",
+      demo: "https://www.behance.net/gallery/135068517/Logo-Design-for-Bistro-Coffee-shop",
       role: "Graphic Designer",
       duration: "Jan 2022",
       organization: "Bistro Coffee Shop",
@@ -328,11 +327,11 @@ const Projects = () => {
     {
       title: "Logo Redesign Concept for Kandy Tuskers",
       description: "A conceptual logo redesign for Kandy Tuskers, a Sri Lankan franchise professional Twenty20 cricket team that competes in the Lanka Premier League.",
-      image: "/projects/kandy-tuskers-logo.jpg",
+      image: "/images/kandy-tuskers.png",
       technologies: ["Graphic Design"],
       category: ["branding"],
-      github: "#",
-      demo: "#",
+      github: "https://www.behance.net/gallery/130369959/Logo-Redesign-concept-for-",
+      demo: "https://www.behance.net/gallery/130369959/Logo-Redesign-concept-for-",
       role: "Graphic Designer",
       duration: "Apr-May 2021",
       organization: "Lanka Premier League, Kandy Tuskers",
@@ -342,31 +341,31 @@ const Projects = () => {
         "Maintained brand recognition in sports context"
       ]
     },
-    {
-      title: "Logo Design Concept for Lanka Premier League",
-      description: "Development of a conceptual logo design for the Lanka Premier League, Sri Lanka's professional cricket league in Twenty20 format.",
-      image: "/projects/lpl-logo.jpg",
-      technologies: ["Graphic Design"],
-      category: ["branding"],
-      github: "#",
-      demo: "#",
-      role: "Graphic Designer",
-      duration: "Apr 2021",
-      organization: "Lanka Premier League",
-      highlights: [
-        "Created conceptual logo design",
-        "Developed professional sports league identity",
-        "Established brand recognition in cricket context"
-      ]
-    },
+    // {
+    //   title: "Logo Design Concept for Lanka Premier League",
+    //   description: "Development of a conceptual logo design for the Lanka Premier League, Sri Lanka's professional cricket league in Twenty20 format.",
+    //   image: "/projects/lpl-logo.jpg",
+    //   technologies: ["Graphic Design"],
+    //   category: ["branding"],
+    //   github: "https://www.behance.net/gallery/131948853/Lanka-Premier-League-Logo-Redesign",
+    //   demo: "https://www.behance.net/gallery/131948853/Lanka-Premier-League-Logo-Redesign",
+    //   role: "Graphic Designer",
+    //   duration: "Apr 2021",
+    //   organization: "Lanka Premier League",
+    //   highlights: [
+    //     "Created conceptual logo design",
+    //     "Developed professional sports league identity",
+    //     "Established brand recognition in cricket context"
+    //   ]
+    // },
     {
       title: "Logo Redesign Concept for Colombo Kings",
       description: "A conceptual logo redesign for Colombo Kings, a franchise Twenty20 cricket team based in Colombo, Sri Lanka, competing in the Lanka Premier League.",
-      image: "/projects/colombo-kings-logo.jpg",
+      image: "/images/colombo-kings.png",
       technologies: ["Graphic Design"],
       category: ["branding"],
-      github: "#",
-      demo: "#",
+      github: "https://www.behance.net/gallery/130936549/Colombo-Kings-Logo-Redesign",
+      demo: "https://www.behance.net/gallery/130936549/Colombo-Kings-Logo-Redesign",
       role: "Graphic Designer",
       duration: "Apr 2021",
       organization: "Lanka Premier League, Colombo Kings",
@@ -456,7 +455,7 @@ const Projects = () => {
             }}
           >
             Featured Projects
-          </Typography>
+      </Typography>
         </motion.div>
 
         {/* Filter Buttons */}
@@ -490,7 +489,7 @@ const Projects = () => {
         {/* Projects Grid */}
         <Grid container spacing={4}>
           {filteredProjects.map((project, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid item xs={12} sm={6} md={4} key={index}>
               <motion.div
                 variants={fadeInUp}
                 initial="hidden"
@@ -688,7 +687,7 @@ const Projects = () => {
                   component="img"
                   src={selectedProject.image}
                   alt={selectedProject.title}
-                  sx={{
+                sx={{
                     width: "100%",
                     height: 300,
                     objectFit: "cover",
@@ -771,7 +770,7 @@ const Projects = () => {
                       variant="body2"
                     >
                       {highlight}
-                    </Typography>
+                </Typography>
                   ))}
                 </Box>
                 <Typography
@@ -812,22 +811,22 @@ const Projects = () => {
                     gap: 2
                   }}
                 >
-                  <Button
+                <Button
                     variant="contained"
                     href={selectedProject.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  target="_blank"
+                  rel="noopener noreferrer"
                     startIcon={<Github size={20} />}
-                    sx={{
+                  sx={{
                       backgroundColor: "rgba(255,255,255,0.1)",
                       color: "#fff",
                       "&:hover": {
                         backgroundColor: "rgba(255,255,255,0.2)"
                       }
-                    }}
-                  >
-                    View on GitHub
-                  </Button>
+                  }}
+                >
+                  View on GitHub
+                </Button>
                   <Button
                     variant="contained"
                     href={selectedProject.demo}
