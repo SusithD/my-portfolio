@@ -233,13 +233,16 @@ const About = () => {
                     </TimelineSeparator>
                     <TimelineContent>
                       <Typography variant="h6" sx={{ color: "#fff" }}>
-                        Founder & UI/UX Designer
+                        Software Engineer Intern
                       </Typography>
                       <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        The Qexle · Dec 2019 - Present
+                        CoverageX · Jan 2025 - Present
                       </Typography>
                       <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Delivered 50+ web and e-commerce solutions globally.
+                        Colombo, Western Province, Sri Lanka · On-site
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
+                        Skills: User Experience (UX), React.js and more
                       </Typography>
                     </TimelineContent>
                   </TimelineItem>
@@ -247,19 +250,25 @@ const About = () => {
                   <TimelineItem>
                     <TimelineSeparator>
                       <TimelineDot sx={{ backgroundColor: "#0d6efd" }}>
-                        <CodeIcon />
+                        <WorkIcon />
                       </TimelineDot>
                       <TimelineConnector sx={{ backgroundColor: "#0d6efd" }} />
                     </TimelineSeparator>
                     <TimelineContent>
                       <Typography variant="h6" sx={{ color: "#fff" }}>
-                        Freelance UI/UX Designer
+                        Co-Founder & CEO
                       </Typography>
                       <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Upwork & Fiverr · Aug 2016 - Mar 2024
+                        The qexle · Dec 2019 - Present
                       </Typography>
                       <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Completed 300+ projects with 95%+ client satisfaction.
+                        Malabe, Western Province, Sri Lanka
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
+                        As the founder of The qexle, I drive strategic growth and oversee all facets of the business, from client acquisition to project delivery. The qexle specializes in Branding & Strategy, Web Development, Digital Marketing, and SEO Services, aiming to empower businesses with innovative solutions tailored for their digital success.
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
+                        Skills: Branding & Identity Design, Digital Marketing and more
                       </Typography>
                     </TimelineContent>
                   </TimelineItem>
@@ -267,18 +276,76 @@ const About = () => {
                   <TimelineItem>
                     <TimelineSeparator>
                       <TimelineDot sx={{ backgroundColor: "#0d6efd" }}>
-                        <DesignServicesIcon />
+                        <WorkIcon />
+                      </TimelineDot>
+                      <TimelineConnector sx={{ backgroundColor: "#0d6efd" }} />
+                    </TimelineSeparator>
+                    <TimelineContent>
+                      <Typography variant="h6" sx={{ color: "#fff" }}>
+                        User Interface Designer
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
+                        Upwork · Aug 2016 - Present
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
+                        Remote · Part-time
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
+                        As a part-time UI designer on Upwork for eight years, I've honed my skills in creating visually appealing, intuitive, and user-centered interfaces. Successfully completed over 300+ projects with high client satisfaction, specializing in minimal, modern, and user-friendly UI designs.
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
+                        Skills: Figma, Graphic Design and more
+                      </Typography>
+                    </TimelineContent>
+                  </TimelineItem>
+
+                  <TimelineItem>
+                    <TimelineSeparator>
+                      <TimelineDot sx={{ backgroundColor: "#0d6efd" }}>
+                        <WorkIcon />
+                      </TimelineDot>
+                      <TimelineConnector sx={{ backgroundColor: "#0d6efd" }} />
+                    </TimelineSeparator>
+                    <TimelineContent>
+                      <Typography variant="h6" sx={{ color: "#fff" }}>
+                        Web Designer
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
+                        Fiverr · Apr 2016 - Present
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
+                        Remote · Part-time
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
+                        Developed custom, user-friendly websites that help clients stand out online. Focus on creating engaging, visually appealing designs that prioritize user experience and functionality.
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
+                        Skills: Figma, Graphic Design and more
+                      </Typography>
+                    </TimelineContent>
+                  </TimelineItem>
+
+                  <TimelineItem>
+                    <TimelineSeparator>
+                      <TimelineDot sx={{ backgroundColor: "#0d6efd" }}>
+                        <WorkIcon />
                       </TimelineDot>
                     </TimelineSeparator>
                     <TimelineContent>
                       <Typography variant="h6" sx={{ color: "#fff" }}>
-                        Visual Graphic Designer
+                        Freelance Graphic Designer
                       </Typography>
                       <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Boss Up Media · May 2024 – Nov 2024
+                        Boss Up Media · May 2024 - Nov 2024
                       </Typography>
                       <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                        Designed digital & print assets for 20+ brands.
+                        Colombo, Western Province, Sri Lanka · Hybrid
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
+                        Created visually compelling and impactful designs that elevate clients' brands. Specialized in producing digital and print materials, including logos, marketing collateral, and social media graphics.
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)", mt: 1 }}>
+                        Skills: Adobe Illustrator, Adobe Photoshop and more
                       </Typography>
                     </TimelineContent>
                   </TimelineItem>
