@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, Container, Button } from "@mui/material";
 import { motion } from "framer-motion";
+import { Download } from 'lucide-react';
 
 const Hero = () => {
   const [mounted, setMounted] = useState(false);
@@ -273,25 +274,24 @@ const Hero = () => {
           >
             {/* Primary CTA Button */}
             <Button
-              variant="contained"
-              onClick={() => handleScroll("projects")}
-              component={motion.button}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
+              variant="outlined"
+              size="large"
+              href="/resume.pdf"
+              download
+              startIcon={<Download size={20} />}
               sx={{
-                backgroundColor: "#fff",
-                color: "#000",
-                fontSize: { xs: "0.95rem", md: "1rem" },
-                fontWeight: 600,
-                padding: { xs: "0.75rem 1.5rem", md: "0.9rem 2rem" },
-                borderRadius: "0.5rem",
-                textTransform: "none",
+                color: "#fff",
+                borderColor: "rgba(255,255,255,0.2)",
+                py: 1.5,
+                px: 3,
+                borderRadius: "12px",
                 "&:hover": {
-                  backgroundColor: "rgba(255, 255, 255, 0.9)"
+                  borderColor: "#fff",
+                  backgroundColor: "rgba(255,255,255,0.1)"
                 }
               }}
             >
-              View My Projects
+              Download Resume
             </Button>
 
             {/* Secondary CTA Button */}
