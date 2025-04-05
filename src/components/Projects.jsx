@@ -1,13 +1,15 @@
 "use client"; // Mark this component as a Client Component
 
 import React, { useState } from 'react';
-import { Typography, Box, Container, Grid, Paper, Button, Chip, Modal, IconButton } from '@mui/material';
-import { motion } from 'framer-motion';
-import { Github, ExternalLink, X } from 'lucide-react';
+import { Typography, Box, Container, Grid, Paper, Button, Chip, Modal, IconButton, useTheme } from '@mui/material';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Github, ExternalLink, X, ArrowRight } from 'lucide-react';
 
 const Projects = () => {
+  const theme = useTheme();
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [hoveredProject, setHoveredProject] = useState(null);
 
   const filters = [
     { label: 'All', value: 'all' },
@@ -24,8 +26,8 @@ const Projects = () => {
     { label: 'Branding', value: 'branding' }
   ];
 
-const projects = [
-  {
+  const projects = [
+    {
       title: "Plantation Field Management System Mobile Application",
       description: "A mobile application designed to streamline operations for Greentips Plantation, managing over 250 acres of coconut and intercrop plantations. The app automates data handling and enables real-time task management for all team members from field workers to executives.",
       image: "/images/Greentips-mobile.png",
@@ -341,23 +343,6 @@ const projects = [
         "Maintained brand recognition in sports context"
       ]
     },
-    // {
-    //   title: "Logo Design Concept for Lanka Premier League",
-    //   description: "Development of a conceptual logo design for the Lanka Premier League, Sri Lanka's professional cricket league in Twenty20 format.",
-    //   image: "/projects/lpl-logo.jpg",
-    //   technologies: ["Graphic Design"],
-    //   category: ["branding"],
-    //   github: "https://www.behance.net/gallery/131948853/Lanka-Premier-League-Logo-Redesign",
-    //   demo: "https://www.behance.net/gallery/131948853/Lanka-Premier-League-Logo-Redesign",
-    //   role: "Graphic Designer",
-    //   duration: "Apr 2021",
-    //   organization: "Lanka Premier League",
-    //   highlights: [
-    //     "Created conceptual logo design",
-    //     "Developed professional sports league identity",
-    //     "Established brand recognition in cricket context"
-    //   ]
-    // },
     {
       title: "Logo Redesign Concept for Colombo Kings",
       description: "A conceptual logo redesign for Colombo Kings, a franchise Twenty20 cricket team based in Colombo, Sri Lanka, competing in the Lanka Premier League.",
@@ -391,16 +376,6 @@ const projects = [
     }
   };
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
   return (
     <Box
       id="projects"
@@ -413,21 +388,15 @@ const projects = [
         py: { xs: 8, md: 12 }
       }}
     >
-      {/* Background gradient orbs */}
+      {/* Background gradient */}
       <Box
-        component={motion.div}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.15 }}
-        transition={{ duration: 1.5 }}
         sx={{
           position: "absolute",
-          width: "600px",
-          height: "600px",
-          borderRadius: "100%",
-          background: "radial-gradient(circle at center, rgba(100,100,255,0.5), rgba(100,100,255,0) 70%)",
-          top: "-300px",
-          right: "-100px",
-          filter: "blur(60px)",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "radial-gradient(circle at center, rgba(99, 102, 241, 0.1), transparent 70%)",
           zIndex: 0
         }}
       />
@@ -443,19 +412,18 @@ const projects = [
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: "2rem", md: "3rem" },
-              fontWeight: 800,
+              fontSize: { xs: "2.5rem", md: "3.5rem" },
+              fontWeight: 700,
               textAlign: "center",
               mb: 8,
               background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              color: "transparent"
             }}
           >
             Featured Projects
-      </Typography>
+          </Typography>
         </motion.div>
 
         {/* Filter Buttons */}
@@ -468,33 +436,42 @@ const projects = [
             justifyContent: "center"
           }}
         >
-          {filters.map((filter) => (
-            <Chip
+          {filters.map((filter, index) => (
+            <motion.div
               key={filter.value}
-              label={filter.label}
-              onClick={() => setSelectedFilter(filter.value)}
-              sx={{
-                backgroundColor: selectedFilter === filter.value 
-                  ? "rgba(255,255,255,0.2)" 
-                  : "rgba(255,255,255,0.1)",
-                color: "#fff",
-                "&:hover": {
-                  backgroundColor: "rgba(255,255,255,0.2)"
-                }
-              }}
-            />
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Chip
+                label={filter.label}
+                onClick={() => setSelectedFilter(filter.value)}
+                sx={{
+                  backgroundColor: selectedFilter === filter.value 
+                    ? "rgba(255,255,255,0.2)" 
+                    : "rgba(255,255,255,0.1)",
+                  color: "#fff",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    backgroundColor: "rgba(255,255,255,0.2)",
+                    transform: "translateY(-2px)"
+                  }
+                }}
+              />
+            </motion.div>
           ))}
         </Box>
 
         {/* Projects Grid */}
         <Grid container spacing={4}>
           {filteredProjects.map((project, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+            <Grid item xs={12} sm={6} md={4} key={index}>
               <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
               >
                 <Paper
                   elevation={0}
@@ -505,37 +482,79 @@ const projects = [
                     borderRadius: "24px",
                     border: "1px solid rgba(255,255,255,0.1)",
                     backdropFilter: "blur(10px)",
-                    cursor: "pointer",
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
                     "&:hover": {
                       transform: "translateY(-5px)",
-                      boxShadow: "0 8px 32px rgba(0,0,0,0.2)"
+                      boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
                     }
                   }}
-                  onClick={() => setSelectedProject(project)}
                 >
                   <Box
-                    component="img"
-                    src={project.image}
-                    alt={project.title}
                     sx={{
-                      width: "100%",
-                      height: 200,
-                      objectFit: "cover",
+                      position: "relative",
+                      overflow: "hidden",
                       borderRadius: "12px",
                       mb: 2
                     }}
-                  />
+                  >
+                    <Box
+                      component="img"
+                      src={project.image}
+                      alt={project.title}
+                      sx={{
+                        width: "100%",
+                        height: 200,
+                        objectFit: "cover",
+                        transition: "transform 0.3s ease",
+                        transform: hoveredProject === project.title ? "scale(1.05)" : "scale(1)"
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%)",
+                        opacity: hoveredProject === project.title ? 1 : 0,
+                        transition: "opacity 0.3s ease",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center"
+                      }}
+                    >
+                      <Button
+                        variant="contained"
+                        startIcon={<ArrowRight size={20} />}
+                        onClick={() => setSelectedProject(project)}
+                        sx={{
+                          backgroundColor: "rgba(255,255,255,0.2)",
+                          color: "#fff",
+                          "&:hover": {
+                            backgroundColor: "rgba(255,255,255,0.3)"
+                          }
+                        }}
+                      >
+                        View Details
+                      </Button>
+                    </Box>
+                  </Box>
+
                   <Typography
                     variant="h6"
                     sx={{
                       mb: 1,
                       fontWeight: 600,
-                      color: "#fff"
+                      background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
                     }}
                   >
                     {project.title}
                   </Typography>
+
                   <Typography
                     variant="body2"
                     sx={{
@@ -549,6 +568,7 @@ const projects = [
                   >
                     {project.description}
                   </Typography>
+
                   <Box
                     sx={{
                       display: "flex",
@@ -557,7 +577,7 @@ const projects = [
                       mb: 2
                     }}
                   >
-                    {project.technologies.map((tech, techIndex) => (
+                    {project.technologies.slice(0, 3).map((tech, techIndex) => (
                       <Chip
                         key={techIndex}
                         label={tech}
@@ -565,80 +585,86 @@ const projects = [
                         sx={{
                           backgroundColor: "rgba(255,255,255,0.1)",
                           color: "rgba(255,255,255,0.7)",
+                          transition: "all 0.3s ease",
                           "&:hover": {
-                            backgroundColor: "rgba(255,255,255,0.2)"
+                            backgroundColor: "rgba(255,255,255,0.2)",
+                            transform: "translateY(-2px)"
                           }
                         }}
                       />
                     ))}
+                    {project.technologies.length > 3 && (
+                      <Chip
+                        label={`+${project.technologies.length - 3}`}
+                        size="small"
+                        sx={{
+                          backgroundColor: "rgba(255,255,255,0.1)",
+                          color: "rgba(255,255,255,0.7)"
+                        }}
+                      />
+                    )}
                   </Box>
+
                   <Box
                     sx={{
                       display: "flex",
-                      gap: 2,
-                      mb: 2
+                      justifyContent: "space-between",
+                      alignItems: "center"
                     }}
                   >
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      startIcon={<Github size={16} />}
-                      sx={{
-                        color: "#fff",
-                        borderColor: "rgba(255,255,255,0.2)",
-                        "&:hover": {
-                          borderColor: "#fff",
-                          backgroundColor: "rgba(255,255,255,0.1)"
-                        }
-                      }}
-                    >
-                      GitHub
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      startIcon={<ExternalLink size={16} />}
-                      sx={{
-                        color: "#fff",
-                        borderColor: "rgba(255,255,255,0.2)",
-                        "&:hover": {
-                          borderColor: "#fff",
-                          backgroundColor: "rgba(255,255,255,0.1)"
-                        }
-                      }}
-                    >
-                      Live Demo
-                    </Button>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 1
-                    }}
-                  >
-                    <Typography
-                      variant="caption"
-                      sx={{
-                        color: "rgba(255,255,255,0.5)"
-                      }}
-                    >
-                      {project.role} • {project.organization}
-                    </Typography>
-                    <Typography
-                      variant="caption"
-                      sx={{
-                        color: "rgba(255,255,255,0.5)"
-                      }}
-                    >
-                      {project.duration}
-                    </Typography>
+                    <Box>
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          color: "rgba(255,255,255,0.5)",
+                          display: "block"
+                        }}
+                      >
+                        {project.role}
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          color: "rgba(255,255,255,0.5)"
+                        }}
+                      >
+                        {project.duration}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", gap: 1 }}>
+                      <IconButton
+                        size="small"
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{
+                          color: "rgba(255,255,255,0.7)",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            color: "#fff",
+                            transform: "translateY(-2px)"
+                          }
+                        }}
+                      >
+                        <Github size={18} />
+                      </IconButton>
+                      <IconButton
+                        size="small"
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{
+                          color: "rgba(255,255,255,0.7)",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            color: "#fff",
+                            transform: "translateY(-2px)"
+                          }
+                        }}
+                      >
+                        <ExternalLink size={18} />
+                      </IconButton>
+                    </Box>
                   </Box>
                 </Paper>
               </motion.div>
@@ -646,208 +672,252 @@ const projects = [
           ))}
         </Grid>
 
-        {/* Project Preview Modal */}
-        <Modal
-          open={Boolean(selectedProject)}
-          onClose={() => setSelectedProject(null)}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center"
-          }}
-        >
-          <Box
-            sx={{
-              position: "relative",
-              width: "90%",
-              maxWidth: 800,
-              maxHeight: "90vh",
-              overflow: "auto",
-              backgroundColor: "#000",
-              borderRadius: "24px",
-              border: "1px solid rgba(255,255,255,0.1)",
-              p: 4
-            }}
-          >
-            <IconButton
-              onClick={() => setSelectedProject(null)}
+        {/* Project Details Modal */}
+        <AnimatePresence>
+          {selectedProject && (
+            <Modal
+              open={Boolean(selectedProject)}
+              onClose={() => setSelectedProject(null)}
               sx={{
-                position: "absolute",
-                right: 16,
-                top: 16,
-                color: "#fff"
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
               }}
             >
-              <X size={24} />
-            </IconButton>
-
-            {selectedProject && (
-              <>
-                <Box
-                  component="img"
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                sx={{
-                    width: "100%",
-                    height: 300,
-                    objectFit: "cover",
-                    borderRadius: "12px",
-                    mb: 3
-                  }}
-                />
-                <Typography
-                  variant="h4"
-                  sx={{
-                    mb: 2,
-                    fontWeight: 700,
-                    color: "#fff"
-                  }}
-                >
-                  {selectedProject.title}
-                </Typography>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+              >
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 1,
-                    mb: 3
-                  }}
-                >
-                  <Typography
-                    variant="subtitle1"
-                    sx={{
-                      color: "rgba(255,255,255,0.7)",
-                      fontWeight: 500
-                    }}
-                  >
-                    {selectedProject.role} • {selectedProject.organization}
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    sx={{
-                      color: "rgba(255,255,255,0.5)"
-                    }}
-                  >
-                    {selectedProject.duration}
-                  </Typography>
-                </Box>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    mb: 3,
-                    color: "rgba(255,255,255,0.7)",
-                    lineHeight: 1.6
-                  }}
-                >
-                  {selectedProject.description}
-                </Typography>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    mb: 2,
-                    color: "#fff",
-                    fontWeight: 600
-                  }}
-                >
-                  Key Highlights
-                </Typography>
-                <Box
-                  component="ul"
-                  sx={{
-                    mb: 3,
-                    pl: 2,
-                    "& li": {
-                      color: "rgba(255,255,255,0.7)",
-                      mb: 1,
-                      lineHeight: 1.6
+                    position: "relative",
+                    width: "90%",
+                    maxWidth: 800,
+                    maxHeight: "90vh",
+                    overflow: "auto",
+                    backgroundColor: "#000",
+                    borderRadius: "24px",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    p: 4,
+                    "&::-webkit-scrollbar": {
+                      width: "8px"
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      backgroundColor: "rgba(255,255,255,0.1)"
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                      borderRadius: "4px"
                     }
                   }}
                 >
-                  {selectedProject.highlights.map((highlight, index) => (
-                    <Typography
-                      component="li"
-                      key={index}
-                      variant="body2"
-                    >
-                      {highlight}
-                </Typography>
-                  ))}
-                </Box>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    mb: 2,
-                    color: "#fff",
-                    fontWeight: 600
-                  }}
-                >
-                  Technologies Used
-                </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    gap: 1,
-                    flexWrap: "wrap",
-                    mb: 3
-                  }}
-                >
-                  {selectedProject.technologies.map((tech, techIndex) => (
-                    <Chip
-                      key={techIndex}
-                      label={tech}
-                      sx={{
-                        backgroundColor: "rgba(255,255,255,0.1)",
-                        color: "rgba(255,255,255,0.7)",
-                        "&:hover": {
-                          backgroundColor: "rgba(255,255,255,0.2)"
-                        }
-                      }}
-                    />
-                  ))}
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    gap: 2
-                  }}
-                >
-                <Button
-                    variant="contained"
-                    href={selectedProject.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                    startIcon={<Github size={20} />}
-                  sx={{
-                      backgroundColor: "rgba(255,255,255,0.1)",
-                      color: "#fff",
-                      "&:hover": {
-                        backgroundColor: "rgba(255,255,255,0.2)"
-                      }
-                  }}
-                >
-                  View on GitHub
-                </Button>
-                  <Button
-                    variant="contained"
-                    href={selectedProject.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    startIcon={<ExternalLink size={20} />}
+                  <IconButton
+                    onClick={() => setSelectedProject(null)}
                     sx={{
-                      backgroundColor: "rgba(255,255,255,0.1)",
+                      position: "absolute",
+                      right: 16,
+                      top: 16,
                       color: "#fff",
+                      transition: "all 0.3s ease",
                       "&:hover": {
-                        backgroundColor: "rgba(255,255,255,0.2)"
+                        transform: "rotate(90deg)"
                       }
                     }}
                   >
-                    Live Demo
-                  </Button>
+                    <X size={24} />
+                  </IconButton>
+
+                  <Box
+                    component="img"
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    sx={{
+                      width: "100%",
+                      height: 300,
+                      objectFit: "cover",
+                      borderRadius: "12px",
+                      mb: 3
+                    }}
+                  />
+
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      mb: 2,
+                      fontWeight: 700,
+                      background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    {selectedProject.title}
+                  </Typography>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 1,
+                      mb: 3
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle1"
+                      sx={{
+                        color: "rgba(255,255,255,0.7)",
+                        fontWeight: 500
+                      }}
+                    >
+                      {selectedProject.role} • {selectedProject.organization}
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      sx={{
+                        color: "rgba(255,255,255,0.5)"
+                      }}
+                    >
+                      {selectedProject.duration}
+                    </Typography>
+                  </Box>
+
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      mb: 3,
+                      color: "rgba(255,255,255,0.7)",
+                      lineHeight: 1.6
+                    }}
+                  >
+                    {selectedProject.description}
+                  </Typography>
+
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      mb: 2,
+                      fontWeight: 600,
+                      background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    Key Highlights
+                  </Typography>
+
+                  <Box
+                    component="ul"
+                    sx={{
+                      mb: 3,
+                      pl: 2,
+                      "& li": {
+                        color: "rgba(255,255,255,0.7)",
+                        mb: 1,
+                        lineHeight: 1.6
+                      }
+                    }}
+                  >
+                    {selectedProject.highlights.map((highlight, index) => (
+                      <Typography
+                        component="li"
+                        key={index}
+                        variant="body2"
+                      >
+                        {highlight}
+                      </Typography>
+                    ))}
+                  </Box>
+
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      mb: 2,
+                      fontWeight: 600,
+                      background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    Technologies Used
+                  </Typography>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: 1,
+                      flexWrap: "wrap",
+                      mb: 3
+                    }}
+                  >
+                    {selectedProject.technologies.map((tech, techIndex) => (
+                      <Chip
+                        key={techIndex}
+                        label={tech}
+                        sx={{
+                          backgroundColor: "rgba(255,255,255,0.1)",
+                          color: "rgba(255,255,255,0.7)",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            backgroundColor: "rgba(255,255,255,0.2)",
+                            transform: "translateY(-2px)"
+                          }
+                        }}
+                      />
+                    ))}
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: 2
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      href={selectedProject.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      startIcon={<Github size={20} />}
+                      sx={{
+                        backgroundColor: "rgba(255,255,255,0.1)",
+                        color: "#fff",
+                        transition: "all 0.3s ease",
+                        "&:hover": {
+                          backgroundColor: "rgba(255,255,255,0.2)",
+                          transform: "translateY(-2px)"
+                        }
+                      }}
+                    >
+                      View on GitHub
+                    </Button>
+                    <Button
+                      variant="contained"
+                      href={selectedProject.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      startIcon={<ExternalLink size={20} />}
+                      sx={{
+                        backgroundColor: "rgba(255,255,255,0.1)",
+                        color: "#fff",
+                        transition: "all 0.3s ease",
+                        "&:hover": {
+                          backgroundColor: "rgba(255,255,255,0.2)",
+                          transform: "translateY(-2px)"
+                        }
+                      }}
+                    >
+                      Live Demo
+                    </Button>
+                  </Box>
                 </Box>
-              </>
-            )}
-          </Box>
-        </Modal>
+              </motion.div>
+            </Modal>
+          )}
+        </AnimatePresence>
       </Container>
     </Box>
   );

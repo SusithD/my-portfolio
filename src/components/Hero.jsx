@@ -1,12 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Container, Button } from "@mui/material";
-import { motion } from "framer-motion";
-import { Download } from 'lucide-react';
+import { Box, Typography, Container, Button, Grid, useTheme } from "@mui/material";
+import { motion, AnimatePresence } from "framer-motion";
+import { Download, Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
-const Hero = () => {
+const Hero = ({ toggleTheme, isDarkMode }) => {
   const [mounted, setMounted] = useState(false);
+  const [activeTab, setActiveTab] = useState('about');
+  const theme = useTheme();
   
   useEffect(() => {
     setMounted(true);
@@ -33,8 +36,8 @@ const Hero = () => {
   // Gradient animation for the main title
   const gradientAnimation = {
     background: mounted 
-      ? "linear-gradient(to right, #fff, #fff)" 
-      : "linear-gradient(to right, #fff, #fff)",
+      ? "linear-gradient(45deg, #FFFFFF, #808080, #FFFFFF)" 
+      : "linear-gradient(45deg, #FFFFFF, #808080, #FFFFFF)",
     backgroundSize: "200% 200%",
     animation: mounted ? "gradientShift 8s ease infinite" : "none",
     WebkitBackgroundClip: "text",
@@ -43,97 +46,19 @@ const Hero = () => {
     color: "transparent"
   };
 
-  // Grid background for visual effect (simulating Next.js dots pattern)
-  const GridBackground = () => {
-    return (
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          overflow: "hidden",
-          zIndex: 0,
-          opacity: 0.4
-        }}
-      >
-        <svg
-          width="100%"
-          height="100%"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{ position: "absolute", opacity: 0.15 }}
-        >
-          <defs>
-            <pattern
-              id="grid"
-              width="40"
-              height="40"
-              patternUnits="userSpaceOnUse"
-            >
-              <circle cx="20" cy="20" r="1" fill="white" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
+  // Social links
+  const socialLinks = [
+    { icon: <Github size={20} />, href: "https://github.com/SusithD", label: "GitHub" },
+    { icon: <Linkedin size={20} />, href: "https://www.linkedin.com/in/susith-deshan-alwis", label: "LinkedIn" },
+    { icon: <Mail size={20} />, href: "mailto:iamsusithalwis@gmail.com", label: "Email" }
+  ];
 
-        {/* Gradient overlay */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: "radial-gradient(circle at center, transparent 30%, #000 90%)",
-            zIndex: 1
-          }}
-        />
-      </Box>
-    );
-  };
-
-  // Floating gradient orbs (similar to Next.js site)
-  const GradientOrbs = () => {
-    return (
-      <>
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.15, scale: 1 }}
-          transition={{ duration: 1.5 }}
-          sx={{
-            position: "absolute",
-            width: { xs: "300px", md: "600px" },
-            height: { xs: "300px", md: "600px" },
-            borderRadius: "100%",
-            background: "radial-gradient(circle at center, rgba(100,100,255,0.5), rgba(100,100,255,0) 70%)",
-            top: { xs: "-150px", md: "-300px" },
-            right: { xs: "-150px", md: "-100px" },
-            filter: "blur(60px)",
-            zIndex: 0
-          }}
-        />
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.1, scale: 1 }}
-          transition={{ duration: 1.8, delay: 0.3 }}
-          sx={{
-            position: "absolute",
-            width: { xs: "250px", md: "500px" },
-            height: { xs: "250px", md: "500px" },
-            borderRadius: "100%",
-            background: "radial-gradient(circle at center, rgba(200,200,255,0.4), rgba(150,150,255,0) 70%)",
-            bottom: { xs: "-100px", md: "-200px" },
-            left: { xs: "-100px", md: "-100px" },
-            filter: "blur(60px)",
-            zIndex: 0
-          }}
-        />
-      </>
-    );
-  };
+  // Quick stats
+  const stats = [
+    { label: "Projects", value: "20+" },
+    { label: "Experience", value: "3+ Years" },
+    { label: "Technologies", value: "15+" }
+  ];
 
   return (
     <Box
@@ -151,323 +76,337 @@ const Hero = () => {
       }}
     >
       {/* Background elements */}
-      <GridBackground />
-      <GradientOrbs />
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "radial-gradient(circle at center, rgba(99, 102, 241, 0.1), transparent 70%)",
+          zIndex: 0
+        }}
+      />
+
+      {/* Theme Toggle */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 20,
+          right: 20,
+          zIndex: 10,
+        }}
+      >
+        <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+      </Box>
 
       {/* Main content */}
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            py: { xs: 8, md: 12 }
-          }}
-        >
-          {/* Eyebrow text - appears above main title */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeIn}
-            style={{ width: "100%" }}
-          >
-            <Typography
-              variant="overline"
-              component="div"
-              sx={{
-                fontSize: { xs: "0.85rem", md: "1rem" },
-                fontWeight: 500,
-                letterSpacing: "0.2em",
-                mb: 2,
-                color: "rgba(255, 255, 255, 0.7)",
-                textTransform: "uppercase"
-              }}
-            >
-              Portfolio of
-            </Typography>
-          </motion.div>
-
-          {/* Main title with gradient animation */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { 
-                opacity: 1, 
-                y: 0,
-                transition: { duration: 0.8, delay: 0.2 }
-              }
-            }}
-          >
-            <Typography
-              variant="h1"
-              component="h1"
-              sx={{
-                fontSize: { xs: "2.5rem", sm: "3.5rem", md: "5rem", lg: "6rem" },
-                fontWeight: 800,
-                letterSpacing: "-0.05em",
-                mb: { xs: 2, md: 3 },
-                ...gradientAnimation,
-                "@keyframes gradientShift": {
-                  "0%": { backgroundPosition: "0% 50%" },
-                  "50%": { backgroundPosition: "100% 50%" },
-                  "100%": { backgroundPosition: "0% 50%" }
-                }
-              }}
-            >
-              Susith Deshan
-            </Typography>
-          </motion.div>
-
-          {/* Subtitle */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { 
-                opacity: 1, 
-                y: 0,
-                transition: { duration: 0.8, delay: 0.4 }
-              }
-            }}
-          >
-            <Typography
-              variant="h2"
-              component="h2"
-              sx={{
-                fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" },
-                fontWeight: 400,
-                color: "rgba(255, 255, 255, 0.8)",
-                maxWidth: "800px",
-                mx: "auto",
-                mb: 6,
-                lineHeight: 1.5
-              }}
-            >
-              Software Engineering Student & Developer
-              <br />
-              Building modern web experiences with cutting-edge technologies
-            </Typography>
-          </motion.div>
-
-          {/* CTA Button Group */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { 
-                opacity: 1, 
-                y: 0,
-                transition: { duration: 0.8, delay: 0.6 }
-              }
-            }}
-            style={{
-              display: "flex",
-              flexDirection: { xs: "column", sm: "row" },
-              gap: "1rem",
-              marginTop: "1rem"
-            }}
-          >
-            {/* Primary CTA Button */}
-            <Button
-              variant="outlined"
-              size="large"
-              href="/resume.pdf"
-              download
-              startIcon={<Download size={20} />}
-              sx={{
-                color: "#fff",
-                borderColor: "rgba(255,255,255,0.2)",
-                py: 1.5,
-                px: 3,
-                borderRadius: "12px",
-                "&:hover": {
-                  borderColor: "#fff",
-                  backgroundColor: "rgba(255,255,255,0.1)"
-                }
-              }}
-            >
-              Download Resume
-            </Button>
-
-            {/* Secondary CTA Button */}
-            <Button
-              variant="outlined"
-              onClick={() => handleScroll("contact")}
-              component={motion.button}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              sx={{
-                borderColor: "rgba(255, 255, 255, 0.3)",
-                color: "#fff",
-                fontSize: { xs: "0.95rem", md: "1rem" },
-                fontWeight: 500,
-                padding: { xs: "0.75rem 1.5rem", md: "0.9rem 2rem" },
-                borderRadius: "0.5rem",
-                textTransform: "none",
-                backgroundColor: "rgba(255, 255, 255, 0.05)",
-                backdropFilter: "blur(10px)",
-                "&:hover": {
-                  borderColor: "rgba(255, 255, 255, 0.5)",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)"
-                }
-              }}
-            >
-              Contact Me
-            </Button>
-          </motion.div>
-
-          {/* Code example panel (inspired by Next.js site) */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { 
-                opacity: 1, 
-                y: 0,
-                transition: { duration: 1, delay: 0.8 }
-              }
-            }}
-            style={{ width: "100%", maxWidth: "750px", margin: "5rem auto 0" }}
-          >
+        <Grid container spacing={4} alignItems="center">
+          {/* Left column - Main content */}
+          <Grid item xs={12} md={7}>
             <Box
               sx={{
-                backgroundColor: "rgba(30, 30, 35, 0.5)",
-                backdropFilter: "blur(16px)",
-                borderRadius: "0.75rem",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                overflow: "hidden",
-                boxShadow: "0 20px 30px -10px rgba(0, 0, 0, 0.5)",
-                position: "relative"
+                display: "flex",
+                flexDirection: "column",
+                gap: 3
               }}
             >
-              {/* Code panel header */}
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "0.75rem 1.25rem",
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-                  backgroundColor: "rgba(0, 0, 0, 0.2)"
+              {/* Greeting */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={fadeIn}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    color: "rgba(255, 255, 255, 0.7)",
+                    fontWeight: 500,
+                    mb: 1
+                  }}
+                >
+                  Hello, I'm
+                </Typography>
+              </motion.div>
+
+              {/* Name */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0,
+                    transition: { duration: 0.8, delay: 0.2 }
+                  }
+                }}
+              >
+                <Typography
+                  variant="h1"
+                  sx={{
+                    fontSize: { xs: "3rem", sm: "4rem", md: "5rem" },
+                    fontWeight: 800,
+                    lineHeight: 1.1,
+                    mb: 2,
+                    ...gradientAnimation
+                  }}
+                >
+                  Susith Deshan
+                </Typography>
+              </motion.div>
+
+              {/* Title */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0,
+                    transition: { duration: 0.8, delay: 0.4 }
+                  }
+                }}
+              >
+                <Typography
+                  variant="h2"
+                  sx={{
+                    fontSize: { xs: "1.5rem", md: "2rem" },
+                    color: "rgba(255, 255, 255, 0.8)",
+                    mb: 3
+                  }}
+                >
+                  Software Engineering Student & Developer
+                </Typography>
+              </motion.div>
+
+              {/* Description */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0,
+                    transition: { duration: 0.8, delay: 0.6 }
+                  }
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: "1.1rem",
+                    color: "rgba(255, 255, 255, 0.7)",
+                    mb: 4,
+                    maxWidth: "600px"
+                  }}
+                >
+                  Passionate about creating innovative solutions and beautiful user experiences. 
+                  Specializing in full-stack development, UI/UX design, and emerging technologies.
+                </Typography>
+              </motion.div>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0,
+                    transition: { duration: 0.8, delay: 0.8 }
+                  }
+                }}
+              >
+                <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    onClick={() => handleScroll("contact")}
+                    endIcon={<ArrowRight size={20} />}
+                    sx={{
+                      backgroundColor: "#333333",
+                      color: "#fff",
+                      py: 1.5,
+                      px: 3,
+                      borderRadius: "12px",
+                      "&:hover": {
+                        backgroundColor: "#4d4d4d"
+                      }
+                    }}
+                  >
+                    Get in Touch
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    href="/resume.pdf"
+                    download
+                    startIcon={<Download size={20} />}
+                    sx={{
+                      borderColor: "rgba(255,255,255,0.2)",
+                      color: "#fff",
+                      py: 1.5,
+                      px: 3,
+                      borderRadius: "12px",
+                      "&:hover": {
+                        borderColor: "#fff",
+                        backgroundColor: "rgba(255,255,255,0.1)"
+                      }
+                    }}
+                  >
+                    Download CV
+                  </Button>
+                </Box>
+              </motion.div>
+
+              {/* Social Links */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0,
+                    transition: { duration: 0.8, delay: 1 }
+                  }
+                }}
+              >
+                <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+                  {socialLinks.map((link, index) => (
+                    <Button
+                      key={index}
+                      component="a"
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      startIcon={link.icon}
+                      sx={{
+                        color: "rgba(255,255,255,0.7)",
+                        "&:hover": {
+                          color: "#fff",
+                          backgroundColor: "rgba(255,255,255,0.1)"
+                        }
+                      }}
+                    >
+                      {link.label}
+                    </Button>
+                  ))}
+                </Box>
+              </motion.div>
+            </Box>
+          </Grid>
+
+          {/* Right column - Stats and Code Preview */}
+          <Grid item xs={12} md={5}>
+            <Box sx={{ position: "relative" }}>
+              {/* Code Preview */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0,
+                    transition: { duration: 1, delay: 0.8 }
+                  }
                 }}
               >
                 <Box
                   sx={{
-                    display: "flex",
-                    gap: "0.5rem"
+                    backgroundColor: "rgba(30, 30, 35, 0.5)",
+                    backdropFilter: "blur(16px)",
+                    borderRadius: "0.75rem",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    overflow: "hidden",
+                    boxShadow: "0 20px 30px -10px rgba(0, 0, 0, 0.5)"
                   }}
                 >
-                  <Box 
-                    sx={{ 
-                      width: "12px", 
-                      height: "12px", 
-                      borderRadius: "50%", 
-                      backgroundColor: "#FF5F56" 
-                    }} 
-                  />
-                  <Box 
-                    sx={{ 
-                      width: "12px", 
-                      height: "12px", 
-                      borderRadius: "50%", 
-                      backgroundColor: "#FFBD2E" 
-                    }} 
-                  />
-                  <Box 
-                    sx={{ 
-                      width: "12px", 
-                      height: "12px", 
-                      borderRadius: "50%", 
-                      backgroundColor: "#27C93F" 
-                    }} 
-                  />
-                </Box>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: "rgba(255, 255, 255, 0.6)",
-                    fontFamily: "monospace",
-                    fontSize: "0.85rem",
-                    ml: "auto"
-                  }}
-                >
-                  portfolio.js
-                </Typography>
-              </Box>
+                  {/* Code panel header */}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      p: 1.5,
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                      backgroundColor: "rgba(0, 0, 0, 0.2)"
+                    }}
+                  >
+                    <Box sx={{ display: "flex", gap: 1 }}>
+                      <Box sx={{ width: 12, height: 12, borderRadius: "50%", backgroundColor: "#FF5F56" }} />
+                      <Box sx={{ width: 12, height: 12, borderRadius: "50%", backgroundColor: "#FFBD2E" }} />
+                      <Box sx={{ width: 12, height: 12, borderRadius: "50%", backgroundColor: "#27C93F" }} />
+                    </Box>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "rgba(255, 255, 255, 0.6)",
+                        fontFamily: "monospace",
+                        ml: "auto"
+                      }}
+                    >
+                      portfolio.js
+                    </Typography>
+                  </Box>
 
-              {/* Code content */}
-              <Box
-                sx={{
-                  padding: { xs: "1.25rem", md: "1.5rem" },
-                  fontFamily: "monospace",
-                  fontSize: { xs: "0.85rem", md: "1rem" },
-                  lineHeight: 1.6,
-                  textAlign: "left",
-                  overflowX: "auto"
-                }}
-              >
-                <Box sx={{ color: "#81A1C1" }}>
-                  {'const '}<Box component="span" sx={{ color: "#88C0D0" }}>Developer</Box>{' = () => {'}
+                  {/* Code content */}
+                  <Box
+                    sx={{
+                      p: 3,
+                      fontFamily: "monospace",
+                      fontSize: "0.9rem",
+                      lineHeight: 1.6
+                    }}
+                  >
+                    <Box sx={{ color: "#81A1C1" }}>
+                      {'const '}<Box component="span" sx={{ color: "#88C0D0" }}>Developer</Box>{' = () => {'}
+                    </Box>
+                    <Box sx={{ ml: 2, color: "#616E88" }}>// Always learning and building new things</Box>
+                    <Box sx={{ ml: 2, color: "#81A1C1" }}>
+                      const <Box component="span" sx={{ color: "#D8DEE9" }}>skills</Box> ={" "}
+                      <Box component="span" sx={{ color: "#ECEFF4" }}>[</Box>
+                    </Box>
+                    <Box sx={{ ml: 4, color: "#A3BE8C" }}>'React', 'Next.js', 'Vue.js', 'Nuxt.js', 'TypeScript', 'Node.js', 'UI/UX'</Box>
+                    <Box sx={{ ml: 2, color: "#ECEFF4" }}>];</Box>
+                    <Box sx={{ ml: 2, color: "#81A1C1" }}>
+                      const <Box component="span" sx={{ color: "#D8DEE9" }}>passion</Box> ={" "}
+                      <Box component="span" sx={{ color: "#A3BE8C" }}>'Creating beautiful, functional experiences'</Box>;
+                    </Box>
+                    <Box sx={{ ml: 2, mt: 2, color: "#81A1C1" }}>
+                      return <Box component="span" sx={{ color: "#ECEFF4" }}>(</Box>
+                    </Box>
+                    <Box sx={{ ml: 4, color: "#88C0D0" }}>
+                      {"<"}Portfolio
+                    </Box>
+                    <Box sx={{ ml: 6, color: "#D8DEE9" }}>
+                      name=<Box component="span" sx={{ color: "#A3BE8C" }}>"Susith Deshan"</Box>
+                    </Box>
+                    <Box sx={{ ml: 6, color: "#D8DEE9" }}>
+                      skills=<Box component="span" sx={{ color: "#D8DEE9" }}>{"{"}skills{"}"}</Box>
+                    </Box>
+                    <Box sx={{ ml: 6, color: "#D8DEE9" }}>
+                      available=<Box component="span" sx={{ color: "#81A1C1" }}>true</Box>
+                    </Box>
+                    <Box sx={{ ml: 4, color: "#88C0D0" }}>
+                      {"/>"}
+                    </Box>
+                    <Box sx={{ ml: 2, color: "#ECEFF4" }}>);</Box>
+                    <Box sx={{ color: "#ECEFF4" }}>{`}`};</Box>
+                    <Box sx={{ mt: 2, color: "#81A1C1" }}>
+                      export default <Box component="span" sx={{ color: "#88C0D0" }}>Developer</Box>;
+                    </Box>
+                  </Box>
                 </Box>
-                <Box sx={{ ml: 2, color: "#616E88" }}>// Always learning and building new things</Box>
-                <Box sx={{ ml: 2, color: "#81A1C1" }}>
-                  const <Box component="span" sx={{ color: "#D8DEE9" }}>skills</Box> ={" "}
-                  <Box component="span" sx={{ color: "#ECEFF4" }}>[</Box>
-                </Box>
-                <Box sx={{ ml: 4, color: "#A3BE8C" }}>'React', 'Next.js', 'TypeScript', 'Node.js', 'UI/UX'</Box>
-                <Box sx={{ ml: 2, color: "#ECEFF4" }}>];</Box>
-                <Box sx={{ ml: 2, color: "#81A1C1" }}>
-                  const <Box component="span" sx={{ color: "#D8DEE9" }}>passion</Box> ={" "}
-                  <Box component="span" sx={{ color: "#A3BE8C" }}>'Creating beautiful, functional experiences'</Box>;
-                </Box>
-
-                <Box sx={{ ml: 2, mt: 2, color: "#81A1C1" }}>
-                  return <Box component="span" sx={{ color: "#ECEFF4" }}>(</Box>
-                </Box>
-                <Box sx={{ ml: 4, color: "#88C0D0" }}>
-                  {"<"}Portfolio
-                </Box>
-                <Box sx={{ ml: 6, color: "#D8DEE9" }}>
-                  name=<Box component="span" sx={{ color: "#A3BE8C" }}>"Susith Deshan"</Box>
-                </Box>
-                <Box sx={{ ml: 6, color: "#D8DEE9" }}>
-                  skills=<Box component="span" sx={{ color: "#D8DEE9" }}>{"{"}skills{"}"}</Box>
-                </Box>
-                <Box sx={{ ml: 6, color: "#D8DEE9" }}>
-                  available=<Box component="span" sx={{ color: "#81A1C1" }}>true</Box>
-                </Box>
-                <Box sx={{ ml: 4, color: "#88C0D0" }}>
-                  {"/>"}
-                </Box>
-                <Box sx={{ ml: 2, color: "#ECEFF4" }}>);</Box>
-                <Box sx={{ color: "#ECEFF4" }}>{`}`};</Box>
-                <Box sx={{ mt: 2, color: "#81A1C1" }}>
-                  export default <Box component="span" sx={{ color: "#88C0D0" }}>Developer</Box>;
-                </Box>
-              </Box>
+              </motion.div>
             </Box>
-
-            {/* Gradient glow effect under code panel */}
-            <Box
-              sx={{
-                position: "absolute",
-                width: "60%",
-                height: "10%",
-                background: "radial-gradient(circle at center, rgba(100,100,255,0.2), rgba(100,100,255,0) 70%)",
-                borderRadius: "100%",
-                filter: "blur(50px)",
-                bottom: "-5%",
-                left: "20%",
-                zIndex: -1
-              }}
-            />
-          </motion.div>
-        </Box>
+          </Grid>
+        </Grid>
       </Container>
 
       {/* Scroll indicator */}

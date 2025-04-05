@@ -6,8 +6,8 @@ import Certifications from '../src/components/Certifications';
 import Contact from '../src/components/Contact';
 import Footer from '../src/components/Footer';
 import Skills from '../src/components/Skills';
-import Model3D from '../src/components/Model3D';
 import Navbar from '../src/components/Navbar';
+
 export default function Home() {
   return (
     <div>
@@ -18,7 +18,6 @@ export default function Home() {
       <Projects />
       <Certifications />
       <Contact />
-      <Model3D />
       <Footer />
     </div>
   );

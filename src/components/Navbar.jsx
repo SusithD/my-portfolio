@@ -1,434 +1,285 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Box, Container, IconButton, Button, Typography } from "@mui/material";
-import { motion, AnimatePresence } from "framer-motion";
-import { Search, Menu, X, Github, ChevronDown } from "lucide-react";
+import React, { useState, useEffect } from 'react';
+import { Box, Container, IconButton, useTheme, useMediaQuery, Drawer, List, ListItem, ListItemText, ListItemIcon } from '@mui/material';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, Home, User, Code, Briefcase, FileText, Mail, ArrowUp, Terminal } from 'lucide-react';
 
 const Navbar = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  // Handle scroll detection for navbar appearance change
+  // Handle scroll events
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      // Check if page is scrolled for navbar styling
+      const isScrolled = window.scrollY > 50;
+      setScrolled(isScrolled);
+      
+      // Show back to top button after scrolling down
+      const shouldShowBackToTop = window.scrollY > 500;
+      setShowBackToTop(shouldShowBackToTop);
     };
-    
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navigation function
-  const handleScroll = (id) => {
+  // Smooth scroll to section
+  const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      window.scrollTo({
+        top: element.offsetTop - 80,
+        behavior: 'smooth'
+      });
+      setMobileMenuOpen(false);
     }
-    setMobileMenuOpen(false);
   };
 
-  // Main Navigation Items
+  // Scroll to top
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  // Nav items
   const navItems = [
-    { 
-      label: "Learn", 
-      id: "learn",
-      hasDropdown: true,
-      dropdownItems: [
-        { label: "Documentation", id: "docs" },
-        { label: "Blog", id: "blog" },
-        { label: "Showcase", id: "showcase" }
-      ]
-    },
-    { label: "About", id: "about", hasDropdown: false },
-    { label: "Projects", id: "projects", hasDropdown: false },
-    { label: "Contact", id: "contact", hasDropdown: false }
+    { id: 'home', label: 'Home', icon: <Home size={18} /> },
+    { id: 'about', label: 'About', icon: <User size={18} /> },
+    { id: 'skills', label: 'Skills', icon: <Code size={18} /> },
+    { id: 'projects', label: 'Projects', icon: <Briefcase size={18} /> },
+    { id: 'contact', label: 'Contact', icon: <Mail size={18} /> }
   ];
 
-  // Toggle dropdown menu
-  const toggleDropdown = (id) => {
-    if (activeDropdown === id) {
-      setActiveDropdown(null);
-    } else {
-      setActiveDropdown(id);
-    }
-  };
-
   return (
-    <Box
-      component={motion.div}
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ 
-        y: 0, 
-        opacity: 1,
-        boxShadow: scrolled ? "0 0 15px rgba(0,0,0,0.1)" : "none",
-        backgroundColor: scrolled ? "rgba(0, 0, 0, 0.8)" : "rgba(0, 0, 0, 0.5)" 
-      }}
-      transition={{ duration: 0.3 }}
-      sx={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1100,
-        backdropFilter: "blur(10px)",
-        borderBottom: scrolled ? "1px solid rgba(66, 66, 66, 0.2)" : "none",
-        transition: "all 0.25s ease"
-      }}
-    >
-      <Container 
-        maxWidth="xl" 
-        sx={{ 
-          display: "flex", 
-          alignItems: "center", 
-          justifyContent: "space-between",
-          py: { xs: 1.5, md: 1.75 },
-          px: { xs: 2, md: 4 }
+    <>
+      {/* Navbar */}
+      <Box
+        component={motion.nav}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        sx={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+          backgroundColor: scrolled 
+            ? 'rgba(0, 0, 0, 0.8)' 
+            : 'transparent',
+          backdropFilter: scrolled ? 'blur(10px)' : 'none',
+          borderBottom: scrolled 
+            ? '1px solid rgba(255, 255, 255, 0.1)' 
+            : 'none',
+          transition: 'all 0.3s ease',
+          py: 1
         }}
       >
-        {/* Logo */}
-        <Box 
-          onClick={() => handleScroll("home")}
-          sx={{ 
-            display: "flex", 
-            alignItems: "center", 
-            cursor: "pointer" 
-          }}
-        >
-          <Typography
-            variant="h6"
-            component="div"
+        <Container maxWidth="lg">
+          <Box
             sx={{
-              fontWeight: 700,
-              fontSize: "1.25rem",
-              letterSpacing: "-0.5px",
-              color: "#fff",
-              display: "flex",
-              alignItems: "center"
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}
           >
-            <Box 
-              component="span" 
-              sx={{ 
-                display: "inline-flex", 
-                alignItems: "center", 
-                justifyContent: "center",
-                width: 32,
-                height: 32,
-                mr: 1,
-                backgroundColor: "#000",
-                borderRadius: "8px"
+            {/* Logo */}
+            <Box
+              component={motion.div}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection('home')}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                cursor: 'pointer'
               }}
             >
-              SD
+              <Terminal size={24} color="rgba(255, 255, 255, 0.9)" />
+              <Box
+                component="span"
+                sx={{
+                  ml: 1,
+                  fontWeight: 700,
+                  fontSize: '1.2rem',
+                  background: 'linear-gradient(to right, #fff, rgba(255,255,255,0.7))',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                Susith
+              </Box>
             </Box>
-            Susith
-          </Typography>
-        </Box>
 
-        {/* Desktop Navigation */}
-        <Box 
-          sx={{ 
-            display: { xs: "none", md: "flex" }, 
-            alignItems: "center", 
-            gap: 0.5 
-          }}
-        >
-          {navItems.map((item) => (
-            <Box key={item.id} sx={{ position: "relative" }}>
-              {item.hasDropdown ? (
-                <>
-                  <Button
-                    onClick={() => toggleDropdown(item.id)}
-                    endIcon={
-                      <ChevronDown 
-                        size={16} 
-                        style={{ 
-                          transform: activeDropdown === item.id ? 'rotate(180deg)' : 'rotate(0)', 
-                          transition: 'transform 0.2s ease'
-                        }} 
-                      />
-                    }
+            {/* Desktop Navigation */}
+            {!isMobile && (
+              <Box
+                component={motion.div}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                sx={{
+                  display: 'flex',
+                  gap: 2
+                }}
+              >
+                {navItems.map((item) => (
+                  <Box
+                    key={item.id}
+                    component={motion.button}
+                    whileHover={{ y: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => scrollToSection(item.id)}
                     sx={{
-                      color: "#fff",
-                      fontWeight: 500,
-                      fontSize: "0.9rem",
-                      textTransform: "none",
-                      py: 1,
-                      px: 2,
-                      borderRadius: "6px",
-                      "&:hover": {
-                        backgroundColor: "rgba(255, 255, 255, 0.1)"
+                      background: 'transparent',
+                      border: 'none',
+                      color: 'rgba(255, 255, 255, 0.7)',
+                      cursor: 'pointer',
+                      p: 1,
+                      borderRadius: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1,
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        color: '#fff',
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)'
                       }
                     }}
                   >
-                    {item.label}
-                  </Button>
-                  
-                  {/* Dropdown Menu */}
-                  <AnimatePresence>
-                    {activeDropdown === item.id && (
-                      <Box
-                        component={motion.div}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        transition={{ duration: 0.2 }}
-                        sx={{
-                          position: "absolute",
-                          top: "100%",
-                          left: 0,
-                          width: "180px",
-                          mt: 1,
-                          backgroundColor: "#000",
-                          borderRadius: "8px",
-                          boxShadow: "0 10px 40px rgba(0,0,0,0.2)",
-                          border: "1px solid rgba(66, 66, 66, 0.3)",
-                          backdropFilter: "blur(10px)",
-                          overflow: "hidden",
-                          zIndex: 1101
-                        }}
-                      >
-                        {item.dropdownItems.map((dropdownItem) => (
-                          <Box
-                            key={dropdownItem.id}
-                            onClick={() => {
-                              handleScroll(dropdownItem.id);
-                              setActiveDropdown(null);
-                            }}
-                            sx={{
-                              py: 1.5,
-                              px: 2.5,
-                              cursor: "pointer",
-                              "&:hover": {
-                                backgroundColor: "rgba(255, 255, 255, 0.05)"
-                              },
-                              transition: "all 0.15s ease"
-                            }}
-                          >
-                            <Typography 
-                              variant="body2"
-                              sx={{ 
-                                color: "#fff",
-                                fontWeight: 400,
-                                fontSize: "0.9rem" 
-                              }}
-                            >
-                              {dropdownItem.label}
-                            </Typography>
-                          </Box>
-                        ))}
-                      </Box>
-                    )}
-                  </AnimatePresence>
-                </>
-              ) : (
-                <Button
-                  onClick={() => handleScroll(item.id)}
-                  sx={{
-                    color: "#fff",
-                    fontWeight: 500,
-                    fontSize: "0.9rem",
-                    textTransform: "none",
-                    py: 1,
-                    px: 2,
-                    borderRadius: "6px",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.1)"
-                    }
-                  }}
-                >
-                  {item.label}
-                </Button>
-              )}
-            </Box>
-          ))}
-          
-          {/* Search and GitHub Icons */}
-          <Box sx={{ display: "flex", alignItems: "center", ml: 1 }}>
-            <IconButton
-              sx={{ 
-                color: "rgba(255, 255, 255, 0.7)",
-                "&:hover": { color: "#fff", backgroundColor: "rgba(255, 255, 255, 0.1)" }
-              }}
-            >
-              <Search size={18} />
-            </IconButton>
-            <IconButton
-              sx={{ 
-                color: "rgba(255, 255, 255, 0.7)",
-                "&:hover": { color: "#fff", backgroundColor: "rgba(255, 255, 255, 0.1)" }
-              }}
-            >
-              <Github size={18} />
-            </IconButton>
+                    {item.icon}
+                    <Box component="span" sx={{ fontWeight: 500 }}>
+                      {item.label}
+                    </Box>
+                  </Box>
+                ))}
+              </Box>
+            )}
+
+            {/* Mobile Menu Button */}
+            {isMobile && (
+              <IconButton
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                sx={{
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  '&:hover': {
+                    color: '#fff',
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)'
+                  }
+                }}
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </IconButton>
+            )}
           </Box>
-        </Box>
+        </Container>
+      </Box>
 
-        {/* Mobile Menu Toggle */}
-        <Box sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}>
+      {/* Mobile Menu Drawer */}
+      <Drawer
+        anchor="right"
+        open={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        PaperProps={{
+          sx: {
+            backgroundColor: 'rgba(0, 0, 0, 0.95)',
+            backdropFilter: 'blur(10px)',
+            width: '70%',
+            maxWidth: '300px',
+            borderLeft: '1px solid rgba(255, 255, 255, 0.1)'
+          }
+        }}
+      >
+        <Box sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
           <IconButton
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            sx={{ color: "#fff" }}
-          >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </IconButton>
-        </Box>
-      </Container>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <Box
-            component={motion.div}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            onClick={() => setMobileMenuOpen(false)}
             sx={{
-              width: "100%",
-              overflow: "hidden",
-              backgroundColor: "rgba(0, 0, 0, 0.95)",
-              borderTop: "1px solid rgba(66, 66, 66, 0.15)",
-              backdropFilter: "blur(10px)"
+              color: 'rgba(255, 255, 255, 0.7)',
+              '&:hover': {
+                color: '#fff',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)'
+              }
             }}
           >
-            <Container sx={{ py: 2, px: 2 }}>
-              {navItems.map((item) => (
-                <Box key={item.id}>
-                  {item.hasDropdown ? (
-                    <>
-                      <Button
-                        onClick={() => toggleDropdown(item.id)}
-                        endIcon={
-                          <ChevronDown 
-                            size={16} 
-                            style={{ 
-                              transform: activeDropdown === item.id ? 'rotate(180deg)' : 'rotate(0)', 
-                              transition: 'transform 0.2s ease'
-                            }} 
-                          />
-                        }
-                        sx={{
-                          color: "#fff",
-                          fontWeight: 500,
-                          textTransform: "none",
-                          py: 1.5,
-                          px: 0,
-                          justifyContent: "space-between",
-                          width: "100%",
-                          borderRadius: 0,
-                          borderBottom: "1px solid rgba(66, 66, 66, 0.15)",
-                          "&:hover": {
-                            backgroundColor: "transparent"
-                          }
-                        }}
-                      >
-                        {item.label}
-                      </Button>
-                      
-                      <AnimatePresence>
-                        {activeDropdown === item.id && (
-                          <Box
-                            component={motion.div}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            sx={{ pl: 2 }}
-                          >
-                            {item.dropdownItems.map((dropdownItem) => (
-                              <Button
-                                key={dropdownItem.id}
-                                onClick={() => handleScroll(dropdownItem.id)}
-                                sx={{
-                                  color: "rgba(255, 255, 255, 0.7)",
-                                  fontWeight: 400,
-                                  textTransform: "none",
-                                  py: 1.5,
-                                  px: 0,
-                                  justifyContent: "flex-start",
-                                  width: "100%",
-                                  borderBottom: "1px solid rgba(66, 66, 66, 0.1)",
-                                  borderRadius: 0,
-                                  "&:hover": {
-                                    backgroundColor: "transparent",
-                                    color: "#fff"
-                                  }
-                                }}
-                              >
-                                {dropdownItem.label}
-                              </Button>
-                            ))}
-                          </Box>
-                        )}
-                      </AnimatePresence>
-                    </>
-                  ) : (
-                    <Button
-                      onClick={() => handleScroll(item.id)}
-                      sx={{
-                        color: "#fff",
-                        fontWeight: 500,
-                        textTransform: "none",
-                        py: 1.5,
-                        px: 0,
-                        justifyContent: "flex-start",
-                        width: "100%",
-                        borderRadius: 0,
-                        borderBottom: "1px solid rgba(66, 66, 66, 0.15)",
-                        "&:hover": {
-                          backgroundColor: "transparent"
-                        }
-                      }}
-                    >
-                      {item.label}
-                    </Button>
-                  )}
-                </Box>
-              ))}
-              
-              {/* Mobile Search & GitHub */}
-              <Box sx={{ display: "flex", mt: 2, gap: 2 }}>
-                <Button
-                  startIcon={<Search size={16} />}
-                  sx={{
-                    color: "#fff",
-                    backgroundColor: "rgba(255, 255, 255, 0.05)",
-                    textTransform: "none",
-                    py: 1,
-                    px: 2,
-                    borderRadius: "6px",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.1)"
-                    },
-                    flexGrow: 1
-                  }}
-                >
-                  Search
-                </Button>
-                <Button
-                  startIcon={<Github size={16} />}
-                  sx={{
-                    color: "#fff",
-                    backgroundColor: "rgba(255, 255, 255, 0.05)",
-                    textTransform: "none",
-                    py: 1,
-                    px: 2,
-                    borderRadius: "6px",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.1)"
-                    }
-                  }}
-                >
-                  Github
-                </Button>
-              </Box>
-            </Container>
-          </Box>
+            <X size={24} />
+          </IconButton>
+        </Box>
+        <List>
+          {navItems.map((item) => (
+            <ListItem
+              key={item.id}
+              button
+              onClick={() => scrollToSection(item.id)}
+              sx={{
+                color: 'rgba(255, 255, 255, 0.7)',
+                '&:hover': {
+                  color: '#fff',
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)'
+                }
+              }}
+            >
+              <ListItemIcon sx={{ color: 'inherit' }}>
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText primary={item.label} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+
+      {/* Back to Top Button */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              position: 'fixed',
+              bottom: '30px',
+              right: '30px',
+              zIndex: 1000
+            }}
+          >
+            <Box
+              component={motion.button}
+              whileHover={{ y: -5, scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={scrollToTop}
+              sx={{
+                width: '50px',
+                height: '50px',
+                borderRadius: '50%',
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }
+              }}
+            >
+              <ArrowUp size={24} color="rgba(255, 255, 255, 0.9)" />
+            </Box>
+          </motion.div>
         )}
       </AnimatePresence>
-    </Box>
+    </>
   );
 };
 
