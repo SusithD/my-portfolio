@@ -40,8 +40,7 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
         { text: "    layout: 'Modern Grid System',", indent: 4, color: "#A3BE8C" },
         { text: "    colorPalette: ['#2E3440', '#88C0D0', '#A3BE8C'],", indent: 4, color: "#A3BE8C" },
         { text: "    typography: 'Inter, sans-serif',", indent: 4, color: "#A3BE8C" },
-        { text: "    components: ['Hero', 'Projects', 'Contact']", indent: 4, color: "#A3BE8C" },
-        { text: "  };", indent: 2, color: "#ECEFF4" },
+        { text: "    components: ['Hero', 'Projects', 'Contact']", indent: 4, color: "#A3BE8C" },        { text: "  };", indent: 2, color: "#ECEFF4" },
         { text: "", indent: 0, color: "#ECEFF4" },
         { text: "  return (", indent: 2, color: "#88C0D0" },
         { text: "    <div className='wireframe'>", indent: 4, color: "#88C0D0" },
@@ -418,7 +417,7 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        pt: { xs: 8, md: 0 }
+        pt: { xs: 12, sm: 10, md: 8, lg: 0 }
       }}
     >
       {/* Background elements */}
@@ -438,8 +437,8 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
       <Box
         sx={{
           position: 'absolute',
-          top: 20,
-          right: 20,
+          top: { xs: 16, sm: 20 },
+          right: { xs: 16, sm: 20 },
           zIndex: 10,
         }}
       >
@@ -448,14 +447,14 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
 
       {/* Main content */}
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
-        <Grid container spacing={4} alignItems="center">
+        <Grid container spacing={{ xs: 6, md: 4 }} alignItems="center">
           {/* Left column - Main content */}
           <Grid item xs={12} md={7}>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                gap: 3
+                gap: { xs: 2, sm: 3 }
               }}
             >
               {/* Greeting */}
@@ -469,7 +468,8 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                   sx={{
                     color: "rgba(255, 255, 255, 0.7)",
                     fontWeight: 500,
-                    mb: 1
+                    mb: 1,
+                    fontSize: { xs: "1rem", sm: "1.25rem" }
                   }}
                 >
                   Hello, I'm
@@ -492,10 +492,10 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                 <Typography
                   variant="h1"
                   sx={{
-                    fontSize: { xs: "3rem", sm: "4rem", md: "5rem" },
+                    fontSize: { xs: "2.5rem", sm: "3rem", md: "4rem", lg: "5rem" },
                     fontWeight: 800,
                     lineHeight: 1.1,
-                    mb: 2,
+                    mb: { xs: 1, sm: 2 },
                     ...gradientAnimation
                   }}
                 >
@@ -519,9 +519,9 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                 <Typography
                   variant="h2"
                   sx={{
-                    fontSize: { xs: "1.5rem", md: "2rem" },
+                    fontSize: { xs: "1.25rem", sm: "1.5rem", md: "2rem" },
                     color: "rgba(255, 255, 255, 0.8)",
-                    mb: 3
+                    mb: { xs: 2, sm: 3 }
                   }}
                 >
                   Software Engineering Student & Developer
@@ -544,9 +544,9 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                 <Typography
                   variant="body1"
                   sx={{
-                    fontSize: "1.1rem",
+                    fontSize: { xs: "0.95rem", sm: "1.1rem" },
                     color: "rgba(255, 255, 255, 0.7)",
-                    mb: 4,
+                    mb: { xs: 3, sm: 4 },
                     maxWidth: "600px"
                   }}
                 >
@@ -568,7 +568,7 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                   }
                 }}
               >
-                <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                <Box sx={{ display: "flex", gap: { xs: 1.5, sm: 2 }, flexWrap: "wrap" }}>
                   <Button
                     variant="contained"
                     size="large"
@@ -577,9 +577,10 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                     sx={{
                       backgroundColor: "#333333",
                       color: "#fff",
-                      py: 1.5,
-                      px: 3,
+                      py: { xs: 1, sm: 1.5 },
+                      px: { xs: 2, sm: 3 },
                       borderRadius: "12px",
+                      fontSize: { xs: "0.875rem", sm: "1rem" },
                       "&:hover": {
                         backgroundColor: "#4d4d4d"
                       }
@@ -596,9 +597,10 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                     sx={{
                       borderColor: "rgba(255,255,255,0.2)",
                       color: "#fff",
-                      py: 1.5,
-                      px: 3,
+                      py: { xs: 1, sm: 1.5 },
+                      px: { xs: 2, sm: 3 },
                       borderRadius: "12px",
+                      fontSize: { xs: "0.875rem", sm: "1rem" },
                       "&:hover": {
                         borderColor: "#fff",
                         backgroundColor: "rgba(255,255,255,0.1)"
@@ -623,7 +625,7 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                   }
                 }}
               >
-                <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+                <Box sx={{ display: "flex", gap: { xs: 1, sm: 2 }, mt: { xs: 1.5, sm: 2 }, flexWrap: "wrap" }}>
                   {socialLinks.map((link, index) => (
                     <Button
                       key={index}
@@ -634,6 +636,9 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                       startIcon={link.icon}
                       sx={{
                         color: "rgba(255,255,255,0.7)",
+                        fontSize: { xs: "0.8rem", sm: "0.875rem" },
+                        py: { xs: 0.5, sm: 1 },
+                        px: { xs: 1, sm: 1.5 },
                         "&:hover": {
                           color: "#fff",
                           backgroundColor: "rgba(255,255,255,0.1)"
@@ -650,14 +655,15 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
 
           {/* Right column - Interactive Code Snippets */}
           <Grid item xs={12} md={5}>
-            <Box sx={{ position: "relative" }}>
+            <Box sx={{ position: "relative", mt: { xs: 4, md: 0 } }}>
               {/* Code Snippet Tabs */}
               <Box 
                 sx={{ 
                   display: "flex", 
-                  gap: 1, 
-                  mb: 2,
-                  justifyContent: "center"
+                  gap: { xs: 0.5, sm: 1 }, 
+                  mb: { xs: 1.5, sm: 2 },
+                  justifyContent: "center",
+                  flexWrap: "wrap"
                 }}
               >
                 {codeSnippets.map((snippet, index) => (
@@ -671,8 +677,8 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                       display: "flex",
                       alignItems: "center",
                       gap: 1,
-                      p: 1,
-                      px: 2,
+                      p: { xs: 0.75, sm: 1 },
+                      px: { xs: 1.5, sm: 2 },
                       borderRadius: "8px",
                       border: "1px solid rgba(255,255,255,0.1)",
                       backgroundColor: activeCodeSnippet === index 
@@ -683,6 +689,7 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                         : "rgba(255,255,255,0.6)",
                       cursor: "pointer",
                       transition: "all 0.3s ease",
+                      fontSize: { xs: "0.75rem", sm: "0.875rem" },
                       "&:hover": {
                         borderColor: "rgba(255,255,255,0.3)",
                         backgroundColor: "rgba(255,255,255,0.05)"
@@ -718,7 +725,9 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                     border: "1px solid rgba(255, 255, 255, 0.1)",
                     overflow: "hidden",
                     boxShadow: "0 20px 30px -10px rgba(0, 0, 0, 0.5)",
-                    position: "relative"
+                    position: "relative",
+                    maxHeight: { xs: "300px", sm: "400px" },
+                    overflowY: "auto"
                   }}
                 >
                   {/* Code panel header */}
@@ -726,7 +735,7 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                     sx={{
                       display: "flex",
                       alignItems: "center",
-                      p: 1.5,
+                      p: { xs: 1, sm: 1.5 },
                       borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
                       backgroundColor: "rgba(0, 0, 0, 0.2)"
                     }}
@@ -741,7 +750,8 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                       sx={{
                         color: "rgba(255, 255, 255, 0.6)",
                         fontFamily: "monospace",
-                        ml: "auto"
+                        ml: "auto",
+                        fontSize: { xs: "0.7rem", sm: "0.75rem" }
                       }}
                     >
                       {codeSnippets[activeCodeSnippet].title.toLowerCase().replace(/\s+/g, '-')}.js
@@ -751,9 +761,9 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                   {/* Code content with typing animation */}
                   <Box
                     sx={{
-                      p: 3,
+                      p: { xs: 2, sm: 3 },
                       fontFamily: "monospace",
-                      fontSize: "0.9rem",
+                      fontSize: { xs: "0.8rem", sm: "0.9rem" },
                       lineHeight: 1.6,
                       position: "relative"
                     }}
@@ -812,7 +822,7 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                         />
                       </>
                     ) : (
-                      <Box sx={{ height: "300px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                      <Box sx={{ height: { xs: "250px", sm: "300px" }, display: "flex", justifyContent: "center", alignItems: "center" }}>
                         {renderWireframeVisualization()}
                       </Box>
                     )}
@@ -823,58 +833,36 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
           </Grid>
         </Grid>
       </Container>
-
-      {/* Scroll indicator */}
       <Box
         component={motion.div}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.7 }}
-        transition={{ delay: 2, duration: 1 }}
-        sx={{
-          position: "absolute",
-          bottom: "2rem",
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          cursor: "pointer",
-          zIndex: 2
+        animate={{ 
+          y: [0, 8, 0],
         }}
-        onClick={() => handleScroll("about")}
+        transition={{ 
+          repeat: Infinity,
+          duration: 2
+        }}
+        sx={{
+          position: 'absolute',
+          bottom: { xs: 40, sm: 60 },
+          left: '50%',
+          transform: 'translateX(-50%)',
+          cursor: 'pointer',
+          '&:hover': {
+            opacity: 0.8
+          }
+        }}
+        onClick={() => handleScroll('about')}
       >
-        <Typography 
-          variant="caption" 
-          sx={{ 
-            color: "rgba(255,255,255,0.7)",
-            letterSpacing: "0.1em",
-            mb: 1,
-            fontSize: "0.75rem",
-            textTransform: "uppercase"
-          }}
-        >
-          Scroll
-        </Typography>
-        <Box
-          component={motion.div}
-          animate={{ 
-            y: [0, 8, 0],
-          }}
-          transition={{ 
-            repeat: Infinity,
-            duration: 2
-          }}
-        >
-          <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path 
-              d="M8 2L8 22M8 22L2 16M8 22L14 16" 
-              stroke="white" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Box>
+        <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path 
+            d="M8 2L8 22M8 22L2 16M8 22L14 16" 
+            stroke="white" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          />
+        </svg>
       </Box>
     </Box>
   );
