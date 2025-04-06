@@ -508,7 +508,6 @@ const Footer = () => {
               gap: 1
             }}
           >
-            <Heart size={14} color="rgba(255,255,255,0.3)" />
             © {currentYear} Susith Deshan. All rights reserved.
           </Typography>
         </Box>
