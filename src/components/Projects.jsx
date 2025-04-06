@@ -26,8 +26,8 @@ const Projects = () => {
     { label: 'Branding', value: 'branding' }
   ];
 
-  const projects = [
-    {
+const projects = [
+  {
       title: "Plantation Field Management System Mobile Application",
       description: "A mobile application designed to streamline operations for Greentips Plantation, managing over 250 acres of coconut and intercrop plantations. The app automates data handling and enables real-time task management for all team members from field workers to executives.",
       image: "/images/Greentips-mobile.png",
@@ -423,12 +423,12 @@ const Projects = () => {
             }}
           >
             Featured Projects
-          </Typography>
+      </Typography>
         </motion.div>
 
         {/* Filter Buttons */}
         <Box
-          sx={{
+              sx={{
             display: "flex",
             gap: 2,
             mb: 6,
@@ -550,10 +550,10 @@ const Projects = () => {
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
-                    }}
-                  >
-                    {project.title}
-                  </Typography>
+                  }}
+                >
+                  {project.title}
+                </Typography>
 
                   <Typography
                     variant="body2"
@@ -566,7 +566,7 @@ const Projects = () => {
                       overflow: "hidden"
                     }}
                   >
-                    {project.description}
+                  {project.description}
                   </Typography>
 
                   <Box
@@ -621,15 +621,15 @@ const Projects = () => {
                         }}
                       >
                         {project.role}
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        sx={{
+                </Typography>
+                <Typography
+                  variant="caption"
+                  sx={{
                           color: "rgba(255,255,255,0.5)"
-                        }}
-                      >
+                  }}
+                >
                         {project.duration}
-                      </Typography>
+                </Typography>
                     </Box>
                     <Box sx={{ display: "flex", gap: 1 }}>
                       <IconButton
@@ -651,8 +651,8 @@ const Projects = () => {
                       <IconButton
                         size="small"
                         href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                  target="_blank"
+                  rel="noopener noreferrer"
                         sx={{
                           color: "rgba(255,255,255,0.7)",
                           transition: "all 0.3s ease",
@@ -890,10 +890,10 @@ const Projects = () => {
                           backgroundColor: "rgba(255,255,255,0.2)",
                           transform: "translateY(-2px)"
                         }
-                      }}
-                    >
-                      View on GitHub
-                    </Button>
+                  }}
+                >
+                  View on GitHub
+                </Button>
                     <Button
                       variant="contained"
                       href={selectedProject.demo}
