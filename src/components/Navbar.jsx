@@ -70,9 +70,7 @@ const Navbar = () => {
   const navItems = [
     { id: 'home', label: 'Home', icon: <Home size={18} /> },
     { id: 'about', label: 'About', icon: <User size={18} /> },
-    { id: 'skills', label: 'Skills', icon: <Code size={18} /> },
     { id: 'projects', label: 'Projects', icon: <Briefcase size={18} /> },
-    { id: 'model3d', label: '3D', icon: <Terminal size={18} /> },
     { id: 'contact', label: 'Contact', icon: <Mail size={18} /> }
   ];
 
