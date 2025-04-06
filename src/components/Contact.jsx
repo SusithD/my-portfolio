@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Box, Container, Typography, TextField, Button, Grid, Paper, IconButton } from '@mui/material';
+import { Box, Container, Typography, TextField, Button, Grid, Paper, IconButton, Snackbar, Alert, CircularProgress } from '@mui/material';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Facebook, Palette } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -12,17 +12,102 @@ const Contact = () => {
     subject: '',
     message: ''
   });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success'
+  });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+    
+    try {
+      // First, test if the API is working with a simpler route
+      const testResponse = await fetch('/api/test', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      });
+      
+      if (!testResponse.ok) {
+        throw new Error('API is not accessible');
+      }
+      
+      // If test API is working, try the contact API
+      const contactTestResponse = await fetch('/api/contact', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      });
+      
+      if (!contactTestResponse.ok) {
+        throw new Error('Contact API is not accessible');
+      }
+      
+      // If both APIs are working, send the form data
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Server returned non-JSON response');
+      }
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+      
+      setSnackbar({
+        open: true,
+        message: 'Message sent successfully! Thank you for reaching out.',
+        severity: 'success'
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSnackbar({
+        open: true,
+        message: error.message || 'An error occurred. Please try again later.',
+        severity: 'error'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
+    });
+  };
+  
+  const handleCloseSnackbar = () => {
+    setSnackbar({
+      ...snackbar,
+      open: false
     });
   };
 
@@ -46,8 +131,8 @@ const Contact = () => {
     {
       icon: <Phone size={20} />,
       title: "Phone",
-      content: "+94 77 123 4567",
-      link: "tel:+94771234567"
+      content: "+94 71 764 7805",
+      link: "tel:+94717647805"
     },
     {
       icon: <MapPin size={20} />,
@@ -69,9 +154,14 @@ const Contact = () => {
       link: "https://www.linkedin.com/in/susith-deshan-alwis"
     },
     {
-      icon: <Twitter size={20} />,
-      label: "Twitter",
-      link: "https://twitter.com/susithalwis"
+      icon: <Palette size={20} />,
+      label: "Behance",
+      link: "https://www.behance.net/susithalwis"
+    },
+    {
+      icon: <Facebook size={20} />,
+      label: "Facebook",
+      link: "https://www.facebook.com/profile.php?id=100014079360520"
     }
   ];
 
@@ -293,6 +383,8 @@ const Contact = () => {
                         value={formData.name}
                         onChange={handleChange}
                         variant="outlined"
+                        required
+                        disabled={isSubmitting}
                         sx={{
                           "& .MuiOutlinedInput-root": {
                             color: "#fff",
@@ -324,6 +416,8 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleChange}
                         variant="outlined"
+                        required
+                        disabled={isSubmitting}
                         sx={{
                           "& .MuiOutlinedInput-root": {
                             color: "#fff",
@@ -354,6 +448,8 @@ const Contact = () => {
                         value={formData.subject}
                         onChange={handleChange}
                         variant="outlined"
+                        required
+                        disabled={isSubmitting}
                         sx={{
                           "& .MuiOutlinedInput-root": {
                             color: "#fff",
@@ -386,6 +482,8 @@ const Contact = () => {
                         variant="outlined"
                         multiline
                         rows={4}
+                        required
+                        disabled={isSubmitting}
                         sx={{
                           "& .MuiOutlinedInput-root": {
                             color: "#fff",
@@ -412,7 +510,8 @@ const Contact = () => {
                       <Button
                         type="submit"
                         variant="contained"
-                        startIcon={<Send size={20} />}
+                        startIcon={isSubmitting ? <CircularProgress size={20} color="inherit" /> : <Send size={20} />}
+                        disabled={isSubmitting}
                         sx={{
                           backgroundColor: "rgba(255,255,255,0.1)",
                           color: "#fff",
@@ -423,10 +522,14 @@ const Contact = () => {
                           "&:hover": {
                             backgroundColor: "rgba(255,255,255,0.2)",
                             transform: "translateY(-5px)"
+                          },
+                          "&:disabled": {
+                            backgroundColor: "rgba(255,255,255,0.05)",
+                            color: "rgba(255,255,255,0.3)"
                           }
                         }}
                       >
-                        Send Message
+                        {isSubmitting ? 'Sending...' : 'Send Message'}
                       </Button>
                     </Grid>
                   </Grid>
@@ -436,6 +539,29 @@ const Contact = () => {
           </Grid>
         </Grid>
       </Container>
+      
+      {/* Snackbar for notifications */}
+      <Snackbar 
+        open={snackbar.open} 
+        autoHideDuration={6000} 
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity={snackbar.severity}
+          sx={{ 
+            width: '100%',
+            backgroundColor: snackbar.severity === 'success' ? 'rgba(76, 175, 80, 0.9)' : 'rgba(244, 67, 54, 0.9)',
+            color: '#fff',
+            '& .MuiAlert-icon': {
+              color: '#fff'
+            }
+          }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Enable both App Router and Pages Router
+  experimental: {
+    appDir: true,
+  },
   async headers() {
     return [
       {
