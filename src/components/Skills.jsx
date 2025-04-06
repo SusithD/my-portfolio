@@ -46,18 +46,6 @@ const Skills = () => {
       ]
     },
     {
-      title: "Cloud & DevOps",
-      icon: <Cloud size={24} />,
-      skills: [
-        { name: "AWS", level: 75 },
-        { name: "Docker", level: 70 },
-        { name: "Git", level: 85 },
-        { name: "CI/CD", level: 75 },
-        { name: "Linux", level: 80 },
-        { name: "Nginx", level: 75 }
-      ]
-    },
-    {
       title: "Mobile Development",
       icon: <Smartphone size={24} />,
       skills: [
