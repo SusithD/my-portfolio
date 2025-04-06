@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Container, Typography, Link, Grid, IconButton, Button } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Twitter, Mail, ArrowUp, Terminal, Code, Heart } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, ArrowRight, ArrowUp, Terminal, Code, Heart } from 'lucide-react';
 
 const Footer = () => {
   const [mounted, setMounted] = useState(false);
@@ -129,22 +129,22 @@ const Footer = () => {
         color: "#fff",
         position: "relative",
         overflow: "hidden",
-        py: { xs: 6, md: 8 },
-        borderTop: "1px solid rgba(255,255,255,0.1)"
+        py: { xs: 8, md: 12 },
+        borderTop: "1px solid rgba(255,255,255,0.05)"
       }}
     >
       {/* Background gradient orbs */}
       <Box
         component={motion.div}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.15 }}
+        animate={{ opacity: 0.1 }}
         transition={{ duration: 1.5 }}
         sx={{
           position: "absolute",
           width: "800px",
           height: "800px",
           borderRadius: "100%",
-          background: "radial-gradient(circle at center, rgba(100,100,255,0.5), rgba(100,100,255,0) 70%)",
+          background: "radial-gradient(circle at center, rgba(100,100,255,0.3), rgba(100,100,255,0) 70%)",
           bottom: "-400px",
           left: "-200px",
           filter: "blur(80px)",
@@ -156,14 +156,14 @@ const Footer = () => {
       <Box
         component={motion.div}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.1 }}
+        animate={{ opacity: 0.05 }}
         transition={{ duration: 1.5, delay: 0.5 }}
         sx={{
           position: "absolute",
           width: "700px",
           height: "700px",
           borderRadius: "100%",
-          background: "radial-gradient(circle at center, rgba(255,100,100,0.5), rgba(255,100,100,0) 70%)",
+          background: "radial-gradient(circle at center, rgba(255,100,100,0.3), rgba(255,100,100,0) 70%)",
           top: "-300px",
           right: "-150px",
           filter: "blur(80px)",
@@ -184,7 +184,7 @@ const Footer = () => {
           width: 300,
           height: 300,
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%)",
+          background: "radial-gradient(circle, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 70%)",
           pointerEvents: "none",
           zIndex: 1,
           opacity: 0.5
@@ -192,7 +192,7 @@ const Footer = () => {
       />
 
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
-        {/* Footer Logo */}
+        {/* Big Typography Section */}
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
@@ -200,48 +200,61 @@ const Footer = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            mb: 6
+            mb: { xs: 6, md: 10 },
+            textAlign: "left"
           }}
         >
-          <Box
-            component={motion.div}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <Typography
+            variant="h1"
             sx={{
-              display: "flex",
-              alignItems: "center",
-              cursor: "pointer",
-              p: 1.5,
-              borderRadius: "12px",
-              border: "1px solid rgba(255,255,255,0.1)",
-              backgroundColor: "rgba(255,255,255,0.03)",
-              backdropFilter: "blur(10px)",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                borderColor: "rgba(255,255,255,0.2)",
-                backgroundColor: "rgba(255,255,255,0.05)"
-              }
+              fontSize: { xs: "3rem", sm: "4rem", md: "5rem", lg: "3rem" },
+              fontWeight: 800,
+              lineHeight: 1.1,
+              mb: 2,
+              background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              letterSpacing: "-0.02em"
             }}
-            onClick={scrollToTop}
           >
-            <Terminal size={28} color="rgba(255, 255, 255, 0.9)" />
-            <Typography
-              variant="h5"
-              sx={{
-                ml: 1,
-                fontWeight: 700,
-                ...gradientAnimation
-              }}
-            >
-              Susith Deshan
-            </Typography>
+            Let's Build Something Together
+          </Typography>
+          <Typography
+            variant="h5"
+            sx={{
+              fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.2rem" },
+              fontWeight: 400,
+              color: "rgba(255,255,255,0.7)",
+              maxWidth: "800px",
+              mb: 4
+            }}
+          >
+            Have a project in mind? I'd love to hear about it. Let's create something amazing.
+          </Typography>
+          <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+          <Button
+                    variant="contained"
+                    size="large"
+                    onClick={() => handleScroll("contact")}
+                    endIcon={<ArrowRight size={20} />}
+                    sx={{
+                      backgroundColor: "#333333",
+                      color: "#fff",
+                      py: 1.5,
+                      px: 3,
+                      borderRadius: "12px",
+                      "&:hover": {
+                        backgroundColor: "#4d4d4d"
+                      }
+                    }}
+                  >
+                    Get in Touch
+                  </Button>
           </Box>
         </Box>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={4} sx={{ mb: 6 }}>
           {/* Logo and Description */}
           <Grid item xs={12} md={4}>
             <motion.div
@@ -253,23 +266,40 @@ const Footer = () => {
               <Box
                 sx={{
                   p: 3,
-                  backgroundColor: "rgba(255,255,255,0.03)",
+                  backgroundColor: "rgba(255,255,255,0.02)",
                   borderRadius: "16px",
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  border: "1px solid rgba(255,255,255,0.05)",
                   backdropFilter: "blur(10px)",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  transition: "all 0.3s ease",
                   "&:hover": {
-                    transform: "translateY(-5px)",
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-                    borderColor: "rgba(255,255,255,0.2)"
+                    borderColor: "rgba(255,255,255,0.1)"
                   }
                 }}
               >
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    mb: 2
+                  }}
+                >
+                  <Terminal size={24} color="rgba(255,255,255,0.9)" />
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      ml: 1,
+                      fontWeight: 700,
+                      ...gradientAnimation
+                    }}
+                  >
+                    Susith Deshan
+                  </Typography>
+                </Box>
                 <Typography
                   variant="body2"
                   sx={{
                     color: "rgba(255,255,255,0.7)",
-                    mb: 3,
+                    mb: 2,
                     lineHeight: 1.6
                   }}
                 >
@@ -309,15 +339,13 @@ const Footer = () => {
               <Box
                 sx={{
                   p: 3,
-                  backgroundColor: "rgba(255,255,255,0.03)",
+                  backgroundColor: "rgba(255,255,255,0.02)",
                   borderRadius: "16px",
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  border: "1px solid rgba(255,255,255,0.05)",
                   backdropFilter: "blur(10px)",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  transition: "all 0.3s ease",
                   "&:hover": {
-                    transform: "translateY(-5px)",
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-                    borderColor: "rgba(255,255,255,0.2)"
+                    borderColor: "rgba(255,255,255,0.1)"
                   }
                 }}
               >
@@ -390,15 +418,13 @@ const Footer = () => {
               <Box
                 sx={{
                   p: 3,
-                  backgroundColor: "rgba(255,255,255,0.03)",
+                  backgroundColor: "rgba(255,255,255,0.02)",
                   borderRadius: "16px",
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  border: "1px solid rgba(255,255,255,0.05)",
                   backdropFilter: "blur(10px)",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  transition: "all 0.3s ease",
                   "&:hover": {
-                    transform: "translateY(-5px)",
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-                    borderColor: "rgba(255,255,255,0.2)"
+                    borderColor: "rgba(255,255,255,0.1)"
                   }
                 }}
               >
@@ -423,8 +449,8 @@ const Footer = () => {
                   {socialLinks.map((link, index) => (
                     <motion.div
                       key={index}
-                      whileHover={{ y: -5, scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ y: -5 }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       <IconButton
                         href={link.href}
@@ -432,13 +458,12 @@ const Footer = () => {
                         rel="noopener noreferrer"
                         sx={{
                           color: "rgba(255,255,255,0.7)",
-                          border: "1px solid rgba(255,255,255,0.2)",
+                          border: "1px solid rgba(255,255,255,0.1)",
                           transition: "all 0.3s ease",
                           "&:hover": {
                             color: "#fff",
                             borderColor: link.color,
-                            backgroundColor: `${link.color}20`,
-                            transform: "translateY(-5px)"
+                            backgroundColor: `${link.color}20`
                           }
                         }}
                       >
@@ -451,7 +476,7 @@ const Footer = () => {
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center",
+                    justifyContent: "flex-start",
                     mt: 2
                   }}
                 >
@@ -461,7 +486,7 @@ const Footer = () => {
                     startIcon={<Mail size={16} />}
                     href="mailto:iamsusithalwis@gmail.com"
                     sx={{
-                      borderColor: "rgba(255,255,255,0.2)",
+                      borderColor: "rgba(255,255,255,0.1)",
                       color: "rgba(255,255,255,0.7)",
                       py: 1,
                       px: 2,
@@ -469,7 +494,7 @@ const Footer = () => {
                       fontSize: "0.8rem",
                       "&:hover": {
                         borderColor: "#fff",
-                        backgroundColor: "rgba(255,255,255,0.1)",
+                        backgroundColor: "rgba(255,255,255,0.05)",
                         color: "#fff"
                       }
                     }}
@@ -490,10 +515,9 @@ const Footer = () => {
           whileInView="visible"
           viewport={{ once: true }}
           sx={{
-            mt: 6,
             pt: 3,
-            borderTop: "1px solid rgba(255,255,255,0.1)",
-            textAlign: "center",
+            borderTop: "1px solid rgba(255,255,255,0.05)",
+            textAlign: "left",
             position: "relative"
           }}
         >
@@ -504,7 +528,6 @@ const Footer = () => {
               fontSize: "0.875rem",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
               gap: 1
             }}
           >
