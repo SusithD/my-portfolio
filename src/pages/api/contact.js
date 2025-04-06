@@ -41,23 +41,84 @@ export default async function handler(req, res) {
         }
       });
 
+      // Create email content
+      const emailContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #000; color: #fff; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #fff; font-size: 24px; margin-bottom: 10px; background: linear-gradient(to right, #fff, rgba(255,255,255,0.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">New Contact Form Submission</h1>
+            <div style="width: 100px; height: 4px; background: linear-gradient(to right, #6366f1, transparent); border-radius: 2px; margin: 0 auto;"></div>
+          </div>
+          
+          <div style="background-color: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);">
+            <p style="margin: 0 0 15px 0; color: rgba(255,255,255,0.7);">You have received a new message from your portfolio contact form:</p>
+            
+            <div style="margin-bottom: 15px;">
+              <p style="margin: 0 0 5px 0; color: rgba(255,255,255,0.5); font-size: 14px;">Name</p>
+              <p style="margin: 0; color: #fff; font-weight: 500;">${name}</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <p style="margin: 0 0 5px 0; color: rgba(255,255,255,0.5); font-size: 14px;">Email</p>
+              <p style="margin: 0; color: #fff; font-weight: 500;">${email}</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <p style="margin: 0 0 5px 0; color: rgba(255,255,255,0.5); font-size: 14px;">Subject</p>
+              <p style="margin: 0; color: #fff; font-weight: 500;">${subject}</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+              <p style="margin: 0 0 5px 0; color: rgba(255,255,255,0.5); font-size: 14px;">Message</p>
+              <p style="margin: 0; color: #fff; font-weight: 500; white-space: pre-wrap;">${message}</p>
+            </div>
+          </div>
+          
+          <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05);">
+            <p style="color: rgba(255,255,255,0.5); font-size: 14px; margin: 0;">This message was sent from your portfolio contact form.</p>
+          </div>
+        </div>
+      `;
+
+      // Create confirmation email content
+      const confirmationEmailContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #000; color: #fff; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #fff; font-size: 24px; margin-bottom: 10px; background: linear-gradient(to right, #fff, rgba(255,255,255,0.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Thank You for Reaching Out</h1>
+            <div style="width: 100px; height: 4px; background: linear-gradient(to right, #6366f1, transparent); border-radius: 2px; margin: 0 auto;"></div>
+          </div>
+          
+          <div style="background-color: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);">
+            <p style="margin: 0 0 15px 0; color: rgba(255,255,255,0.7);">Dear ${name},</p>
+            
+            <p style="margin: 0 0 15px 0; color: rgba(255,255,255,0.7);">Thank you for contacting me through my portfolio website. I have received your message and will get back to you as soon as possible.</p>
+            
+            <div style="background-color: rgba(99, 102, 241, 0.1); padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 3px solid #6366f1;">
+              <p style="margin: 0 0 10px 0; color: rgba(255,255,255,0.5); font-size: 14px; font-style: italic;">Your Message:</p>
+              <p style="margin: 0; color: #fff; font-weight: 500; white-space: pre-wrap;">${message}</p>
+            </div>
+            
+            <p style="margin: 0 0 15px 0; color: rgba(255,255,255,0.7);">In the meantime, feel free to explore more of my work or connect with me on social media:</p>
+            
+            <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">
+              <a href="https://github.com/SusithD" style="color: #6366f1; text-decoration: none; font-weight: 500;">GitHub</a>
+              <a href="https://www.linkedin.com/in/susith-deshan-alwis" style="color: #6366f1; text-decoration: none; font-weight: 500;">LinkedIn</a>
+              <a href="https://www.behance.net/susithalwis" style="color: #6366f1; text-decoration: none; font-weight: 500;">Behance</a>
+            </div>
+          </div>
+          
+          <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05);">
+            <p style="color: rgba(255,255,255,0.5); font-size: 14px; margin: 0;">This is an automated response. Please do not reply to this email.</p>
+            <p style="color: rgba(255,255,255,0.5); font-size: 14px; margin: 5px 0 0 0;">© ${new Date().getFullYear()} Susith Deshan Alwis. All rights reserved.</p>
+          </div>
+        </div>
+      `;
+
       // Email to portfolio owner
       const ownerMailOptions = {
         from: process.env.EMAIL_USER,
         to: process.env.EMAIL_USER,
         subject: `Portfolio Contact: ${subject}`,
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #333;">New Contact Form Submission</h2>
-            <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px;">
-              <p><strong>Name:</strong> ${name}</p>
-              <p><strong>Email:</strong> ${email}</p>
-              <p><strong>Subject:</strong> ${subject}</p>
-              <p><strong>Message:</strong></p>
-              <p style="white-space: pre-wrap;">${message}</p>
-            </div>
-          </div>
-        `
+        html: emailContent
       };
 
       // Confirmation email to the user
@@ -65,18 +126,7 @@ export default async function handler(req, res) {
         from: process.env.EMAIL_USER,
         to: email,
         subject: 'Thank you for contacting me - Susith Deshan Alwis',
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #333;">Thank you for reaching out!</h2>
-            <p>Dear ${name},</p>
-            <p>Thank you for contacting me through my portfolio website. I have received your message and will get back to you as soon as possible.</p>
-            <div style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0;">
-              <p><strong>Your Message:</strong></p>
-              <p style="white-space: pre-wrap;">${message}</p>
-            </div>
-            <p>Best regards,<br>Susith Deshan Alwis</p>
-          </div>
-        `
+        html: confirmationEmailContent
       };
 
       // Send both emails
