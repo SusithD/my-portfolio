@@ -1,19 +1,168 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Box, Typography, Container, Button, Grid, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
+import { Download, Github, Linkedin, Mail, ArrowRight, Code, Terminal, Cpu, Database } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
 const Hero = ({ toggleTheme, isDarkMode }) => {
   const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState('about');
+  const [currentPhrase, setCurrentPhrase] = useState(0);
+  const [activeCodeSnippet, setActiveCodeSnippet] = useState(0);
+  const [typingIndex, setTypingIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [wireframeStep, setWireframeStep] = useState(0);
   const theme = useTheme();
+  const canvasRef = useRef(null);
   
+  // Dynamic phrases for the typing effect
+  const phrases = [
+    "const passion = 'Creating beautiful, functional experiences'",
+    "const skills = ['React', 'Next.js', 'TypeScript', 'Node.js']",
+    "const goal = 'Building innovative solutions'",
+    "const status = 'Available for new projects'",
+    "const expertise = 'Full-stack Development'"
+  ];
+
+  // Code snippets with syntax highlighting
+  const codeSnippets = [
+    {
+      title: "UI/UX Design",
+      icon: <Terminal size={20} />,
+      language: "javascript",
+      code: [
+        { text: "// Wireframe Component", indent: 0, color: "#616E88" },
+        { text: "const Wireframe = () => {", indent: 0, color: "#81A1C1" },
+        { text: "  const design = {", indent: 2, color: "#81A1C1" },
+        { text: "    layout: 'Modern Grid System',", indent: 4, color: "#A3BE8C" },
+        { text: "    colorPalette: ['#2E3440', '#88C0D0', '#A3BE8C'],", indent: 4, color: "#A3BE8C" },
+        { text: "    typography: 'Inter, sans-serif',", indent: 4, color: "#A3BE8C" },
+        { text: "    components: ['Hero', 'Projects', 'Contact']", indent: 4, color: "#A3BE8C" },
+        { text: "  };", indent: 2, color: "#ECEFF4" },
+        { text: "", indent: 0, color: "#ECEFF4" },
+        { text: "  return (", indent: 2, color: "#88C0D0" },
+        { text: "    <div className='wireframe'>", indent: 4, color: "#88C0D0" },
+        { text: "      <header className='hero'>", indent: 6, color: "#88C0D0" },
+        { text: "        <h1>Susith Deshan</h1>", indent: 8, color: "#88C0D0" },
+        { text: "        <p>Full Stack Developer</p>", indent: 8, color: "#88C0D0" },
+        { text: "      </header>", indent: 6, color: "#88C0D0" },
+        { text: "      <main className='content'>", indent: 6, color: "#88C0D0" },
+        { text: "        <section className='projects'>", indent: 8, color: "#88C0D0" },
+        { text: "          {/* Project cards */}", indent: 10, color: "#616E88" },
+        { text: "        </section>", indent: 8, color: "#88C0D0" },
+        { text: "      </main>", indent: 6, color: "#88C0D0" },
+        { text: "    </div>", indent: 4, color: "#88C0D0" },
+        { text: "  );", indent: 2, color: "#ECEFF4" },
+        { text: "};", indent: 0, color: "#ECEFF4" }
+      ]
+    },
+    {
+      title: "Frontend Development",
+      icon: <Code size={20} />,
+      language: "javascript",
+      code: [
+        { text: "const Portfolio = () => {", indent: 0, color: "#81A1C1" },
+        { text: "  const info = {", indent: 2, color: "#81A1C1" },
+        { text: "    name: 'Susith Deshan',", indent: 4, color: "#A3BE8C" },
+        { text: "    role: 'Full Stack Developer',", indent: 4, color: "#A3BE8C" },
+        { text: "    expertise: ['React', 'Next.js', 'TypeScript'],", indent: 4, color: "#A3BE8C" },
+        { text: "    passion: 'Building elegant user experiences'", indent: 4, color: "#A3BE8C" },
+        { text: "  };", indent: 2, color: "#ECEFF4" },
+        { text: "  return (", indent: 2, color: "#88C0D0" },
+        { text: "    <Portfolio {...info} animate={true} />", indent: 4, color: "#88C0D0" },
+        { text: "  );", indent: 2, color: "#88C0D0" },
+        { text: "};", indent: 0, color: "#ECEFF4" }
+      ]
+    },
+    {
+      title: "Backend Development",
+      icon: <Database size={20} />,
+      language: "javascript", 
+      code: [
+        { text: "// RESTful API Implementation", indent: 0, color: "#616E88" },
+        { text: "app.post('/api/projects', async (req, res) => {", indent: 0, color: "#81A1C1" },
+        { text: "  try {", indent: 2, color: "#81A1C1" },
+        { text: "    const { title, description, tech } = req.body;", indent: 4, color: "#88C0D0" },
+        { text: "    const newProject = await Project.create({", indent: 4, color: "#88C0D0" },
+        { text: "      title, description, tech, status: 'active'", indent: 6, color: "#A3BE8C" },
+        { text: "    });", indent: 4, color: "#88C0D0" },
+        { text: "    res.status(201).json(newProject);", indent: 4, color: "#A3BE8C" },
+        { text: "  } catch (err) {", indent: 2, color: "#81A1C1" },
+        { text: "    res.status(500).json({ error: err.message });", indent: 4, color: "#BF616A" },
+        { text: "  }", indent: 2, color: "#ECEFF4" },
+        { text: "});", indent: 0, color: "#ECEFF4" }
+      ]
+    }
+  ];
+
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Effect for cycling through phrases
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPhrase((prev) => (prev + 1) % phrases.length);
+    }, 3000); // Change phrase every 3 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Effect for typing animation
+  useEffect(() => {
+    if (!isTyping) return;
+    
+    const currentSnippet = codeSnippets[activeCodeSnippet];
+    const typingSpeed = 300;
+    
+    const typingInterval = setInterval(() => {
+      setTypingIndex((prev) => {
+        if (prev >= currentSnippet.code.length - 1) {
+          clearInterval(typingInterval);
+          setIsTyping(false);
+          return prev;
+        }
+        return prev + 1;
+      });
+    }, typingSpeed);
+
+    return () => clearInterval(typingInterval);
+  }, [isTyping, activeCodeSnippet]);
+
+  // Effect for initial setup - only for initial load
+  useEffect(() => {
+    // This effect now only sets up the initial snippet
+    setActiveCodeSnippet(0);
+    setTypingIndex(0);
+    setIsTyping(true);
+  }, []);
+
+  // Effect for mouse movement tracking
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        x: e.clientX,
+        y: e.clientY
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Effect for wireframe animation
+  useEffect(() => {
+    if (activeCodeSnippet !== 0) return; // Only animate when UI/UX tab is active (now index 0)
+    
+    const interval = setInterval(() => {
+      setWireframeStep((prev) => (prev + 1) % 4);
+    }, 2000);
+    
+    return () => clearInterval(interval);
+  }, [activeCodeSnippet]);
 
   // Function to handle smooth scrolling
   const handleScroll = (id) => {
@@ -21,6 +170,13 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  // Function to handle code snippet click
+  const handleCodeSnippetClick = (index) => {
+    setActiveCodeSnippet(index);
+    setTypingIndex(0);
+    setIsTyping(true);
   };
 
   // Animation variants
@@ -59,6 +215,196 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
     { label: "Experience", value: "3+ Years" },
     { label: "Technologies", value: "15+" }
   ];
+
+  // Function to render the wireframe visualization
+  const renderWireframeVisualization = () => {
+    if (activeCodeSnippet !== 0) return null; // Only show for UI/UX tab (now index 0)
+    
+    return (
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          pointerEvents: 'none',
+          zIndex: 2
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Box
+            sx={{
+              width: 280,
+              height: 200,
+              border: '2px solid rgba(136, 192, 208, 0.5)',
+              borderRadius: '8px',
+              position: 'relative',
+              overflow: 'hidden',
+              backgroundColor: 'rgba(46, 52, 64, 0.2)',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)'
+            }}
+          >
+            {/* Header */}
+            <motion.div
+              initial={{ height: 0 }}
+              animate={{ height: wireframeStep >= 1 ? 60 : 0 }}
+              transition={{ duration: 0.5 }}
+              style={{
+                width: '100%',
+                backgroundColor: 'rgba(136, 192, 208, 0.2)',
+                borderBottom: '1px solid rgba(136, 192, 208, 0.3)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                padding: '0 10px'
+              }}
+            >
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: wireframeStep >= 1 ? '70%' : 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                style={{
+                  height: '20px',
+                  backgroundColor: 'rgba(163, 190, 140, 0.3)',
+                  borderRadius: '4px',
+                  marginBottom: '8px'
+                }}
+              />
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: wireframeStep >= 1 ? '40%' : 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                style={{
+                  height: '12px',
+                  backgroundColor: 'rgba(163, 190, 140, 0.3)',
+                  borderRadius: '4px'
+                }}
+              />
+            </motion.div>
+            
+            {/* Content */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: wireframeStep >= 2 ? 1 : 0 }}
+              transition={{ duration: 0.5 }}
+              style={{
+                padding: '10px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px'
+              }}
+            >
+              {/* Project cards */}
+              <motion.div
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ 
+                  x: wireframeStep >= 2 ? 0 : -20, 
+                  opacity: wireframeStep >= 2 ? 1 : 0 
+                }}
+                transition={{ duration: 0.5 }}
+                style={{
+                  display: 'flex',
+                  gap: '10px'
+                }}
+              >
+                {[1, 2, 3].map((i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ scale: 0 }}
+                    animate={{ 
+                      scale: wireframeStep >= 2 ? 1 : 0,
+                      opacity: wireframeStep >= 2 ? 1 : 0
+                    }}
+                    transition={{ duration: 0.3, delay: 0.1 * i }}
+                    style={{
+                      width: '60px',
+                      height: '60px',
+                      backgroundColor: 'rgba(136, 192, 208, 0.2)',
+                      borderRadius: '4px',
+                      border: '1px solid rgba(136, 192, 208, 0.3)'
+                    }}
+                  />
+                ))}
+              </motion.div>
+              
+              {/* Text lines */}
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: wireframeStep >= 3 ? '90%' : 0 }}
+                transition={{ duration: 0.5 }}
+                style={{
+                  height: '8px',
+                  backgroundColor: 'rgba(163, 190, 140, 0.3)',
+                  borderRadius: '4px'
+                }}
+              />
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: wireframeStep >= 3 ? '70%' : 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                style={{
+                  height: '8px',
+                  backgroundColor: 'rgba(163, 190, 140, 0.3)',
+                  borderRadius: '4px'
+                }}
+              />
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: wireframeStep >= 3 ? '50%' : 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                style={{
+                  height: '8px',
+                  backgroundColor: 'rgba(163, 190, 140, 0.3)',
+                  borderRadius: '4px'
+                }}
+              />
+            </motion.div>
+            
+            {/* Footer */}
+            <motion.div
+              initial={{ height: 0 }}
+              animate={{ height: wireframeStep >= 4 ? 30 : 0 }}
+              transition={{ duration: 0.5 }}
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                width: '100%',
+                backgroundColor: 'rgba(136, 192, 208, 0.2)',
+                borderTop: '1px solid rgba(136, 192, 208, 0.3)',
+                display: 'flex',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                padding: '0 10px'
+              }}
+            >
+              {['Home', 'Projects', 'Contact'].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: wireframeStep >= 4 ? 1 : 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 * i }}
+                  style={{
+                    width: '40px',
+                    height: '8px',
+                    backgroundColor: 'rgba(163, 190, 140, 0.3)',
+                    borderRadius: '4px'
+                  }}
+                />
+              ))}
+            </motion.div>
+          </Box>
+        </motion.div>
+      </Box>
+    );
+  };
 
   return (
     <Box
@@ -302,9 +648,55 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
             </Box>
           </Grid>
 
-          {/* Right column - Stats and Code Preview */}
+          {/* Right column - Interactive Code Snippets */}
           <Grid item xs={12} md={5}>
             <Box sx={{ position: "relative" }}>
+              {/* Code Snippet Tabs */}
+              <Box 
+                sx={{ 
+                  display: "flex", 
+                  gap: 1, 
+                  mb: 2,
+                  justifyContent: "center"
+                }}
+              >
+                {codeSnippets.map((snippet, index) => (
+                  <Box
+                    key={index}
+                    component={motion.button}
+                    whileHover={{ y: -5, scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => handleCodeSnippetClick(index)}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1,
+                      p: 1,
+                      px: 2,
+                      borderRadius: "8px",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      backgroundColor: activeCodeSnippet === index 
+                        ? "rgba(255,255,255,0.1)" 
+                        : "transparent",
+                      color: activeCodeSnippet === index 
+                        ? "#fff" 
+                        : "rgba(255,255,255,0.6)",
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                      "&:hover": {
+                        borderColor: "rgba(255,255,255,0.3)",
+                        backgroundColor: "rgba(255,255,255,0.05)"
+                      }
+                    }}
+                  >
+                    {snippet.icon}
+                    <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                      {snippet.title}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+
               {/* Code Preview */}
               <motion.div
                 initial="hidden"
@@ -325,7 +717,8 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                     borderRadius: "0.75rem",
                     border: "1px solid rgba(255, 255, 255, 0.1)",
                     overflow: "hidden",
-                    boxShadow: "0 20px 30px -10px rgba(0, 0, 0, 0.5)"
+                    boxShadow: "0 20px 30px -10px rgba(0, 0, 0, 0.5)",
+                    position: "relative"
                   }}
                 >
                   {/* Code panel header */}
@@ -351,56 +744,78 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
                         ml: "auto"
                       }}
                     >
-                      portfolio.js
+                      {codeSnippets[activeCodeSnippet].title.toLowerCase().replace(/\s+/g, '-')}.js
                     </Typography>
                   </Box>
 
-                  {/* Code content */}
+                  {/* Code content with typing animation */}
                   <Box
                     sx={{
                       p: 3,
                       fontFamily: "monospace",
                       fontSize: "0.9rem",
-                      lineHeight: 1.6
+                      lineHeight: 1.6,
+                      position: "relative"
                     }}
                   >
-                    <Box sx={{ color: "#81A1C1" }}>
-                      {'const '}<Box component="span" sx={{ color: "#88C0D0" }}>Developer</Box>{' = () => {'}
-                    </Box>
-                    <Box sx={{ ml: 2, color: "#616E88" }}>// Always learning and building new things</Box>
-                    <Box sx={{ ml: 2, color: "#81A1C1" }}>
-                      const <Box component="span" sx={{ color: "#D8DEE9" }}>skills</Box> ={" "}
-                      <Box component="span" sx={{ color: "#ECEFF4" }}>[</Box>
-                    </Box>
-                    <Box sx={{ ml: 4, color: "#A3BE8C" }}>'React', 'Next.js', 'Vue.js', 'Nuxt.js', 'TypeScript', 'Node.js', 'UI/UX'</Box>
-                    <Box sx={{ ml: 2, color: "#ECEFF4" }}>];</Box>
-                    <Box sx={{ ml: 2, color: "#81A1C1" }}>
-                      const <Box component="span" sx={{ color: "#D8DEE9" }}>passion</Box> ={" "}
-                      <Box component="span" sx={{ color: "#A3BE8C" }}>'Creating beautiful, functional experiences'</Box>;
-                    </Box>
-                    <Box sx={{ ml: 2, mt: 2, color: "#81A1C1" }}>
-                      return <Box component="span" sx={{ color: "#ECEFF4" }}>(</Box>
-                    </Box>
-                    <Box sx={{ ml: 4, color: "#88C0D0" }}>
-                      {"<"}Portfolio
-                    </Box>
-                    <Box sx={{ ml: 6, color: "#D8DEE9" }}>
-                      name=<Box component="span" sx={{ color: "#A3BE8C" }}>"Susith Deshan"</Box>
-                    </Box>
-                    <Box sx={{ ml: 6, color: "#D8DEE9" }}>
-                      skills=<Box component="span" sx={{ color: "#D8DEE9" }}>{"{"}skills{"}"}</Box>
-                    </Box>
-                    <Box sx={{ ml: 6, color: "#D8DEE9" }}>
-                      available=<Box component="span" sx={{ color: "#81A1C1" }}>true</Box>
-                    </Box>
-                    <Box sx={{ ml: 4, color: "#88C0D0" }}>
-                      {"/>"}
-                    </Box>
-                    <Box sx={{ ml: 2, color: "#ECEFF4" }}>);</Box>
-                    <Box sx={{ color: "#ECEFF4" }}>{`}`};</Box>
-                    <Box sx={{ mt: 2, color: "#81A1C1" }}>
-                      export default <Box component="span" sx={{ color: "#88C0D0" }}>Developer</Box>;
-                    </Box>
+                    {activeCodeSnippet !== 0 ? (
+                      <>
+                        {codeSnippets[activeCodeSnippet].code.slice(0, typingIndex + 1).map((line, index) => (
+                          <Box 
+                            key={index} 
+                            sx={{ 
+                              ml: line.indent * 2,
+                              color: line.color,
+                              display: "flex",
+                              flexWrap: "wrap"
+                            }}
+                          >
+                            {line.text}
+                          </Box>
+                        ))}
+                        
+                        {/* Cursor animation */}
+                        {isTyping && (
+                          <Box
+                            component={motion.span}
+                            animate={{ opacity: [1, 0] }}
+                            transition={{ repeat: Infinity, duration: 0.8 }}
+                            sx={{
+                              display: "inline-block",
+                              width: "8px",
+                              height: "16px",
+                              backgroundColor: "#fff",
+                              ml: 0.5,
+                              verticalAlign: "middle"
+                            }}
+                          />
+                        )}
+
+                        {/* Mouse interaction highlight effect */}
+                        <Box
+                          component={motion.div}
+                          animate={{
+                            x: mousePosition.x - 150,
+                            y: mousePosition.y - 150
+                          }}
+                          transition={{ type: "spring", damping: 30, stiffness: 200 }}
+                          sx={{
+                            position: "absolute",
+                            width: 300,
+                            height: 300,
+                            borderRadius: "50%",
+                            background: "radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)",
+                            pointerEvents: "none",
+                            zIndex: 1,
+                            opacity: 0.5
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <Box sx={{ height: "300px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        {renderWireframeVisualization()}
+                      </Box>
+                    )}
                   </Box>
                 </Box>
               </motion.div>
@@ -423,7 +838,8 @@ const Hero = ({ toggleTheme, isDarkMode }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          cursor: "pointer"
+          cursor: "pointer",
+          zIndex: 2
         }}
         onClick={() => handleScroll("about")}
       >
