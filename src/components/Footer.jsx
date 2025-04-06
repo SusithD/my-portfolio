@@ -10,6 +10,7 @@ const Footer = () => {
   const [mounted, setMounted] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [hoveredLink, setHoveredLink] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   // Animation variants
   const fadeInUp = {
@@ -47,6 +48,19 @@ const Footer = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Effect for mouse movement tracking
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        x: e.clientX,
+        y: e.clientY
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   // Function to scroll to top
@@ -127,13 +141,13 @@ const Footer = () => {
         transition={{ duration: 1.5 }}
         sx={{
           position: "absolute",
-          width: "600px",
-          height: "600px",
+          width: "800px",
+          height: "800px",
           borderRadius: "100%",
           background: "radial-gradient(circle at center, rgba(100,100,255,0.5), rgba(100,100,255,0) 70%)",
-          bottom: "-300px",
-          left: "-100px",
-          filter: "blur(60px)",
+          bottom: "-400px",
+          left: "-200px",
+          filter: "blur(80px)",
           zIndex: 0
         }}
       />
@@ -146,18 +160,38 @@ const Footer = () => {
         transition={{ duration: 1.5, delay: 0.5 }}
         sx={{
           position: "absolute",
-          width: "500px",
-          height: "500px",
+          width: "700px",
+          height: "700px",
           borderRadius: "100%",
           background: "radial-gradient(circle at center, rgba(255,100,100,0.5), rgba(255,100,100,0) 70%)",
-          top: "-200px",
-          right: "-100px",
-          filter: "blur(60px)",
+          top: "-300px",
+          right: "-150px",
+          filter: "blur(80px)",
           zIndex: 0
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+      {/* Mouse interaction highlight effect */}
+      <Box
+        component={motion.div}
+        animate={{
+          x: mousePosition.x - 150,
+          y: mousePosition.y - 150
+        }}
+        transition={{ type: "spring", damping: 30, stiffness: 200 }}
+        sx={{
+          position: "absolute",
+          width: 300,
+          height: 300,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%)",
+          pointerEvents: "none",
+          zIndex: 1,
+          opacity: 0.5
+        }}
+      />
+
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
         {/* Footer Logo */}
         <Box
           component={motion.div}
@@ -179,7 +213,17 @@ const Footer = () => {
             sx={{
               display: "flex",
               alignItems: "center",
-              cursor: "pointer"
+              cursor: "pointer",
+              p: 1.5,
+              borderRadius: "12px",
+              border: "1px solid rgba(255,255,255,0.1)",
+              backgroundColor: "rgba(255,255,255,0.03)",
+              backdropFilter: "blur(10px)",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                borderColor: "rgba(255,255,255,0.2)",
+                backgroundColor: "rgba(255,255,255,0.05)"
+              }
             }}
             onClick={scrollToTop}
           >
@@ -216,7 +260,8 @@ const Footer = () => {
                   transition: "transform 0.3s ease, box-shadow 0.3s ease",
                   "&:hover": {
                     transform: "translateY(-5px)",
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)"
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                    borderColor: "rgba(255,255,255,0.2)"
                   }
                 }}
               >
@@ -271,7 +316,8 @@ const Footer = () => {
                   transition: "transform 0.3s ease, box-shadow 0.3s ease",
                   "&:hover": {
                     transform: "translateY(-5px)",
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)"
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                    borderColor: "rgba(255,255,255,0.2)"
                   }
                 }}
               >
@@ -280,10 +326,7 @@ const Footer = () => {
                   sx={{
                     fontWeight: 600,
                     mb: 3,
-                    background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
+                    ...gradientAnimation
                   }}
                 >
                   Quick Links
@@ -354,7 +397,8 @@ const Footer = () => {
                   transition: "transform 0.3s ease, box-shadow 0.3s ease",
                   "&:hover": {
                     transform: "translateY(-5px)",
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)"
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                    borderColor: "rgba(255,255,255,0.2)"
                   }
                 }}
               >
@@ -363,10 +407,7 @@ const Footer = () => {
                   sx={{
                     fontWeight: 600,
                     mb: 3,
-                    background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
+                    ...gradientAnimation
                   }}
                 >
                   Connect
@@ -467,6 +508,7 @@ const Footer = () => {
               gap: 1
             }}
           >
+            <Heart size={14} color="rgba(255,255,255,0.3)" />
             © {currentYear} Susith Deshan. All rights reserved.
           </Typography>
         </Box>
