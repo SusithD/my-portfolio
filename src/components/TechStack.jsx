@@ -134,8 +134,8 @@ const TechStack = () => {
           <Typography
             variant="h1"
             sx={{
-              fontSize: { xs: '2.5rem', md: '4rem' },
-              fontWeight: 800,
+              fontSize: { xs: '2.5rem', md: '3.5rem' }, // Standardized font size
+              fontWeight: 700, // Standardized font weight
               textAlign: 'center',
               mb: 2,
               background: theme.palette.mode === 'dark'
@@ -153,7 +153,7 @@ const TechStack = () => {
             variant="h5"
             sx={{
               textAlign: 'center',
-              mb: 6,
+              mb: 4, // Changed from mb: 6 to create more consistent spacing
               color: 'text.secondary',
               maxWidth: '800px',
               mx: 'auto',
@@ -283,4 +283,4 @@ const TechStack = () => {
   );
 };
 
-export default TechStack; 
+export default TechStack;
