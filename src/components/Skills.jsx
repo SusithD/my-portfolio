@@ -50,18 +50,18 @@ const Skills = () => {
         { name: "GraphQL", icon: "logos:graphql" }
       ]
     },
-    {
-      title: "Mobile Development",
-      icon: <Smartphone size={24} />,
-      skills: [
-        { name: "React Native", icon: "logos:react" },
-        { name: "Flutter", icon: "logos:flutter" },
-        { name: "iOS Development", icon: "logos:apple" },
-        { name: "Android Development", icon: "logos:android-icon" },
-        { name: "Mobile UI/UX", icon: "mdi:cellphone" },
-        { name: "App Testing", icon: "mdi:test-tube" }
-      ]
-    },
+    // {
+    //   title: "Mobile Development",
+    //   icon: <Smartphone size={24} />,
+    //   skills: [
+    //     { name: "React Native", icon: "logos:react" },
+    //     { name: "Flutter", icon: "logos:flutter" },
+    //     { name: "iOS Development", icon: "logos:apple" },
+    //     { name: "Android Development", icon: "logos:android-icon" },
+    //     { name: "Mobile UI/UX", icon: "mdi:cellphone" },
+    //     { name: "App Testing", icon: "mdi:test-tube" }
+    //   ]
+    // },
     {
       title: "Tools & Others",
       icon: <Settings size={24} />,
@@ -165,7 +165,7 @@ const Skills = () => {
               fontSize: { xs: "2.5rem", md: "3.5rem" },
               fontWeight: 700,
               textAlign: "center",
-              mb: 8,
+              mb: 6, // Changed from mb: 8 to maintain consistent spacing
               background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
