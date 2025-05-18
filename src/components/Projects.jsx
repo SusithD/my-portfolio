@@ -415,7 +415,7 @@ const projects = [
               fontSize: { xs: "2.5rem", md: "3.5rem" },
               fontWeight: 700,
               textAlign: "center",
-              mb: 8,
+              mb: 6, // Changed from mb: 8 to create consistent spacing
               background: "linear-gradient(to right, #fff, rgba(255,255,255,0.7))",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -431,7 +431,7 @@ const projects = [
               sx={{
             display: "flex",
             gap: 2,
-            mb: 6,
+            mb: 4, // Changed from mb: 6 to create more consistent spacing
             flexWrap: "wrap",
             justifyContent: "center"
           }}
